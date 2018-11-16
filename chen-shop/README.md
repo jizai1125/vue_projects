@@ -26,7 +26,7 @@
     
     - 搜索：SearchContainer组件
 
-># Day02
+>## Day02
 
 ### 首页: HomeContainer组件
 
