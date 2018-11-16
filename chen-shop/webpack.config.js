@@ -37,8 +37,8 @@ module.exports={
             },
             {//babel 来转换es高级语法
                 test: /\.js$/,
-                exclude: /node_modules/,
                 loader: 'babel-loader',
+                exclude: /node_modules/,
             },
             {
                 test: /\.vue$/,

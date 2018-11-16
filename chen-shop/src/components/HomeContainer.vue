@@ -85,6 +85,11 @@
     /*轮播图*/
     .mint-swipe {
         height: 200px;
+        @media screen and (min-width: 800px) {
+            & {
+                height: 350px;
+            }
+        }
         .mint-swipe-item {
             img {
                 height: 100%;

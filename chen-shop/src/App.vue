@@ -54,6 +54,7 @@
     }
     .app-container {
         padding-top: 40px;
+        overflow-x: hidden; //隐藏滚动条
     }
     .v-enter {
         transform: translateX(100%);

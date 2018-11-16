@@ -11,6 +11,7 @@ Vue.use(VueResource);
 import { Header, Tabbar, TabItem, Swipe, SwipeItem } from 'mint-ui';
 //导入mui样式
 import './lib/mui/css/mui.css';
+import './lib/mui/js/mui.js';
 import './lib/mui/css/iconfont.css';
 //注册组件
 Vue.component(Header.name, Header);
