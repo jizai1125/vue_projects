@@ -1,16 +1,17 @@
 <template>
     <div class="app-container">
-        <h1>app</h1>
         <!--头部-->
         <header class="mui-bar mui-bar-nav">
             <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
             <h1 class="mui-title">吉仔</h1>
         </header>
         <!--router-view-->
-        <router-view></router-view>
+        <transition mode="">
+            <router-view></router-view>
+        </transition>
         <!--底部tabbar-->
         <nav class="mui-bar mui-bar-tab">
-            <router-link class="mui-tab-item mui-active" to="/home">
+            <router-link class="mui-tab-item" to="/home">
                 <span class="mui-icon iconfont icon-shouye1"></span>
                 <span class="mui-tab-label">首页</span>
             </router-link>
@@ -35,15 +36,35 @@
         name: "App",
         data(){
             return {
-                selected:'',
             }
+        },
+        methods: {
+
         }
     }
 </script>
 
 <style lang="less" scoped>
-
+    .mui-title,
+    .mui-action-back {
+        color: #fff;
+    }
+    .mui-bar-nav {
+        background: #007aff;
+    }
     .app-container {
         padding-top: 40px;
+    }
+    .v-enter {
+        transform: translateX(100%);
+    }
+    .v-leave-to {
+        position: absolute;
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    .v-enter-active,
+    .v-leave-active {
+        transition: all .2s ease-out;
     }
 </style>

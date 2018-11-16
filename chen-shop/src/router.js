@@ -1,28 +1,19 @@
 import VueRouter from 'vue-router';
-import home from './cms-main/home.vue';
-import member from './cms-main/member.vue'
-import shopcar from './cms-main/shopcar.vue'
-import search from './cms-main/search.vue'
+//导入路由组件
+import HomeContainer from './components/HomeContainer.vue';
+import MemberContainer from './components/MemberContainer.vue'
+import ShopcarContainer from './components/ShopcarContainer.vue'
+import SearchContainer from './components/SearchContainer.vue'
 
 var router=new VueRouter({
-    routes: [
-        {
-            path: '/home',
-            component: home
-        },
-        {
-            path: '/member',
-            component: member
-        },
-        {
-            path: '/shopcar',
-            component: shopcar
-        },
-        {
-            path: '/search',
-            component: search
-        }
-
-    ]
+    routes: [//配置路由规则
+        { path: '/', redirect: '/home' },
+        { path: '/home', component: HomeContainer },
+        { path: '/member', component: MemberContainer },
+        { path: '/shopcar', component: ShopcarContainer },
+        { path: '/search', component: SearchContainer }
+    ],
+    linkActiveClass: 'mui-active',  //激活时类名
 });
+//暴露路由对象
 export default router;
