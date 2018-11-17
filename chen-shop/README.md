@@ -22,7 +22,7 @@
 首页|会员|购物车|搜索
 :---:|:---:|:---:|:---:
 HomeContainer | MemberContainer | ShopcarContainer | SearchContainer           
-
+NewsList|
 ---
 
 >## Day02
@@ -45,6 +45,21 @@ HomeContainer | MemberContainer | ShopcarContainer | SearchContainer
     - 使用 MUI 的grid栅格组件
         >在main.js中导入mui.css
 
+3. 九宫格导航栏
+    - 新闻资讯（NewsList组件）
+    - 图片分享（）
+    - 商品购买
+    - 留言反馈
+    - 视频专区
+    - 联系我们
 ---
 
->## Day3     
+>## Day3   
+
+> #### 新闻资讯 
+1. 加入NewsList组件，路由链接
+2. 制作新闻资讯页面
+3. 使用vue-resource获取新闻数据
+    - 网易新闻接口：http://3g.163.com/touch/jsonp/sy/recommend/0-9.html
+    - 时间格式化，定义全局过滤器，导入moment.js插件
+4. 使用mui样式渲染页面

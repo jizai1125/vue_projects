@@ -33,10 +33,11 @@
 
 <script>
     export default {
-        name: "App",
         data(){
             return {
             }
+        },
+        mounted(){
         },
         methods: {
 
@@ -45,6 +46,7 @@
 </script>
 
 <style lang="less" scoped>
+
     .mui-title,
     .mui-action-back {
         color: #fff;
@@ -53,7 +55,8 @@
         background: #007aff;
     }
     .app-container {
-        padding-top: 40px;
+        padding-top: 44px;
+        padding-bottom: 50px;
         overflow-x: hidden; //隐藏滚动条
     }
     .v-enter {

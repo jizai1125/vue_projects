@@ -1,53 +1,55 @@
 <template>
     <div>
         <!--顶部轮播图-->
-        <mt-swipe :auto="4000">
-            <mt-swipe-item><img src="../images/l1.jpg" alt=""></mt-swipe-item>
-            <mt-swipe-item><img src="../images/l2.jpg" alt=""></mt-swipe-item>
-            <mt-swipe-item><img src="../images/l3.jpg" alt=""></mt-swipe-item>
-            <mt-swipe-item><img src="../images/l4.jpg" alt=""></mt-swipe-item>
+        <mt-swipe :auto="4000" ref="swipe" @change="">
+            <mt-swipe-item><img src="../../images/l1.jpg" alt=""></mt-swipe-item>
+            <mt-swipe-item><img src="../../images/l2.jpg" alt=""></mt-swipe-item>
+            <mt-swipe-item><img src="../../images/l3.jpg" alt=""></mt-swipe-item>
+            <mt-swipe-item><img src="../../images/l4.jpg" alt=""></mt-swipe-item>
         </mt-swipe>
+        <!--<button @click="prev">pre</button>-->
+        <!--<button @click="next">next</button>-->
         <!--/顶部轮播图-->
         <!--导航栏navbar-->
         <div class="navbar">
             <div class="mui-row">
                 <div class="mui-col-xs-4 navbar-item">
-                    <a href="#">
-                        <img src="../images/menu1.png" alt="新闻资讯">
+                    <router-link to="/home/newsList">
+                        <img src="../../images/menu1.png" alt="新闻资讯">
                         <p>新闻资讯</p>
-                    </a>
+                    </router-link>
                 </div>
                 <div class="mui-col-xs-4 navbar-item">
-                    <a href="#">
-                        <img src="../images/menu2.png" alt="图片分享">
+                    <router-link to="/home/newsList">
+                        <img src="../../images/menu2.png" alt="图片分享">
                         <p>图片分享</p>
-                    </a>
+                    </router-link>
                 </div>
                 <div class="mui-col-xs-4 navbar-item">
-                    <a href="#">
-                        <img src="../images/menu3.png" alt="商品购买">
+                    <router-link to="/home/newsList">
+                        <img src="../../images/menu3.png" alt="商品购买">
                         <p>商品购买</p>
-                    </a>
+                    </router-link>
                 </div>
             </div>
             <div class="mui-row">
                 <div class="mui-col-xs-4 navbar-item">
-                    <a href="#">
-                        <img src="../images/menu4.png" alt="留言反馈">
+                    <router-link to="/home/newsList">
+                        <img src="../../images/menu4.png" alt="留言反馈">
                         <p>留言反馈</p>
-                    </a>
+                    </router-link>
                 </div>
                 <div class="mui-col-xs-4 navbar-item">
-                    <a href="#">
-                        <img src="../images/menu5.png" alt="视频专区">
+                    <router-link to="/home/newsList">
+                        <img src="../../images/menu5.png" alt="视频专区">
                         <p>视频专区</p>
-                    </a>
+                    </router-link>
                 </div>
                 <div class="mui-col-xs-4 navbar-item">
-                    <a href="#">
-                        <img src="../images/menu6.png" alt="联系我们">
+                    <router-link to="/home/newsList">
+                        <img src="../../images/menu6.png" alt="联系我们">
                         <p>联系我们</p>
-                    </a>
+                    </router-link>
                 </div>
             </div>
         </div>
@@ -67,7 +69,7 @@
         },
         methods: {
             //获取图片数据,jsonp
-            /*getSwipeImg(){
+            getSwipeImg(){
                 this.$http.jsonp('http://api.douban.com/v2/movie/top250',{params: {start: 5,count: 4}}).then(res=>{
                     console.log(res)
                     if(!res.ok)return;
@@ -76,7 +78,16 @@
                         this.imgLists.push({url: item.images.small})
                     }
                 })
-            }*/
+            },
+            //控制轮播图切换下一张
+            next(){
+                this.$refs.swipe.next()
+            },
+            //控制轮播图切换上一张
+            prev(){
+                console.log(this.$refs.swipe)
+                this.$refs.swipe.prev();
+            },
         }
     }
 </script>
