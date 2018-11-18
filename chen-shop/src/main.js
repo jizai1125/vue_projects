@@ -12,13 +12,15 @@ Vue.use(VueResource);
 //设置全局根目录
 // Vue.http.options.root='/root';
 //按需导入mint-ui组件
-import { Header, Tabbar, TabItem, Swipe, SwipeItem } from 'mint-ui';
+import { Header, Tabbar, TabItem, Swipe, SwipeItem, Spinner, Button } from 'mint-ui';
 //注册组件
 Vue.component(Header.name, Header);
 Vue.component(Tabbar.name, Tabbar);
 Vue.component(TabItem.name, TabItem);
 Vue.component(Swipe.name, Swipe);
 Vue.component(SwipeItem.name, SwipeItem);
+Vue.component(Spinner.name, Spinner);
+Vue.component(Button.name, Button);
 //导入mui样式
 import './lib/mui/css/mui.css';
 // import './lib/mui/js/mui.js';

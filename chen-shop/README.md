@@ -57,9 +57,28 @@ NewsList|
 >## Day3   
 
 > #### 新闻资讯 
-1. 加入NewsList组件，路由链接
-2. 制作新闻资讯页面
-3. 使用vue-resource获取新闻数据
+1. 加入新闻列表NewsList组件，配置路由
+
+>#### 制作新闻资讯页面
+
+1. 新闻列表
+    - 使用vue-resource获取新闻数据
     - 网易新闻接口：http://3g.163.com/touch/jsonp/sy/recommend/0-9.html
-    - 时间格式化，定义全局过滤器，导入moment.js插件
-4. 使用mui样式渲染页面
+    - 完成新闻列表资讯，时间格式化，定义全局过滤器，导入moment.js插件
+    - 使用mui样式渲染页面
+    
+2. 新闻列表项跳转新闻详情的路由
+    - 创建新闻详情NewsInfo.vue组件
+    - 配置路由，path: /home/newsinfo/:id，
+    - 根据 **id** 使用ajax获取新闻内容的数据，
+    - 因为没有接口，所以使用 **iframe** 元素来装跳转的页面
+    
+3. 创建评论子组件 comment.vue
+    - 在需要评论的组件中**import** 评论子组件
+    - 在父组件中通过 components 选项注册评论子组件
+    - 以标签形式在页面中引用 < comment >
+    
+4. 加载新闻详情的评论
+    - 接口： **https://www.apiopen.top/satinCommentApi**，参数：**id**:27610708（新闻对应的id）,**page**: 1（页码）
+    - 根据新闻详情对应的id获取评论内容数据，通过get请求获取
+    - 使用评论组件渲染评论数据

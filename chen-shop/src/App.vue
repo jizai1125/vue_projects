@@ -46,18 +46,20 @@
 </script>
 
 <style lang="less" scoped>
-
-    .mui-title,
-    .mui-action-back {
-        color: #fff;
-    }
-    .mui-bar-nav {
-        background: #007aff;
-    }
     .app-container {
         padding-top: 44px;
         padding-bottom: 50px;
         overflow-x: hidden; //隐藏滚动条
+        .mui-title,
+        .mui-action-back {
+            color: #fff;
+        }
+        .mui-bar-nav {
+            background: #007aff;
+        }
+        .mui-bar-tab {
+            z-index: 999;
+        }
     }
     .v-enter {
         transform: translateX(100%);
