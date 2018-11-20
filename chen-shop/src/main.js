@@ -12,7 +12,7 @@ Vue.use(VueResource);
 //设置全局根目录
 // Vue.http.options.root='/root';
 //按需导入mint-ui组件
-import { Header, Tabbar, TabItem, Swipe, SwipeItem, Spinner, Button } from 'mint-ui';
+import { Header, Tabbar, TabItem, Swipe, SwipeItem, Spinner, Button, Loadmore } from 'mint-ui';
 //注册组件
 Vue.component(Header.name, Header);
 Vue.component(Tabbar.name, Tabbar);
@@ -21,10 +21,13 @@ Vue.component(Swipe.name, Swipe);
 Vue.component(SwipeItem.name, SwipeItem);
 Vue.component(Spinner.name, Spinner);
 Vue.component(Button.name, Button);
+Vue.component(Loadmore.name, Loadmore);
 //导入mui样式
 import './lib/mui/css/mui.css';
-// import './lib/mui/js/mui.js';
+
+//字体图标
 import './lib/mui/css/iconfont.css';
+
 //导入moment插件，格式化时间
 import moment from 'moment';
 //定义日期过滤器

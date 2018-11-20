@@ -20,7 +20,7 @@
                     </router-link>
                 </div>
                 <div class="mui-col-xs-4 navbar-item">
-                    <router-link to="/home/newsList">
+                    <router-link to="/home/photoShare">
                         <img src="../../images/menu2.png" alt="图片分享">
                         <p>图片分享</p>
                     </router-link>

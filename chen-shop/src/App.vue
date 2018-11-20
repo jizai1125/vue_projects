@@ -10,20 +10,20 @@
             <router-view></router-view>
         </transition>
         <!--底部tabbar-->
-        <nav class="mui-bar mui-bar-tab">
-            <router-link class="mui-tab-item" to="/home">
+        <nav class="mui-bar mui-bar-tab" ref="muibar">
+            <router-link class="mui-tab-item-chen" to="/home">
                 <span class="mui-icon iconfont icon-shouye1"></span>
                 <span class="mui-tab-label">首页</span>
             </router-link>
-            <router-link class="mui-tab-item" to="/member">
+            <router-link class="mui-tab-item-chen" to="/member">
                 <span class="mui-icon iconfont icon-wode"><span class="mui-badge">9</span></span>
                 <span class="mui-tab-label">会员</span>
             </router-link>
-            <router-link class="mui-tab-item" to="/shopcar">
+            <router-link class="mui-tab-item-chen" to="/shopcar">
                 <span class="mui-icon iconfont icon-gouwuche"></span>
                 <span class="mui-tab-label">购物车</span>
             </router-link>
-            <router-link class="mui-tab-item" to="/search">
+            <router-link class="mui-tab-item-chen" to="/search">
                 <span class="mui-icon  iconfont icon-sousuo"></span>
                 <span class="mui-tab-label">搜索</span>
             </router-link>
@@ -32,12 +32,16 @@
 </template>
 
 <script>
+    // import  mui from './lib/mui/js/mui.js';
+    // mui('body').on('tap','a',function(){document.location.href=this.href;});
+
     export default {
         data(){
             return {
             }
         },
         mounted(){
+
         },
         methods: {
 
@@ -72,5 +76,35 @@
     .v-enter-active,
     .v-leave-active {
         transition: all .2s ease-out;
+    }
+    /*自定义样式，解决tabbar无法切换问题*/
+    .mui-bar-tab {
+        .mui-tab-item-chen {
+            display: table-cell;
+            overflow: hidden;
+            width: 1%;
+            height: 50px;
+            text-align: center;
+            vertical-align: middle;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            color: #929292;
+            .mui-icon {
+                top: 3px;
+                width: 24px;
+                height: 24px;
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+            .mui-icon ~ .mui-tab-label {
+                font-size: 11px;
+                display: block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            &.mui-active {
+                color: #007aff;
+            }
+        }
     }
 </style>
