@@ -1,11 +1,9 @@
 <template>
     <div>
-        <!--<comment></comment>-->
-
         <ul class="mui-table-view">
             <!--第一种视图-->
             <li class="mui-card" v-for="news in newsList">
-                <router-link :to="'/home/newsinfo/'+news.docid">
+                <router-link :to="'/home/newsInfo/'+news.docid">
                 <div class="bg" :style="'background-image:url('+news.picInfo[0].url+')'">
                 </div>
                 <div class="mui-card-content mui-ellipsis">
@@ -36,16 +34,16 @@
             <!--</li>-->
         </ul>
         <!--加载图标-->
-        <mt-spinner type="fading-circle" :size="60" color="#007aff" class="loading"></mt-spinner>
+        <mt-spinner v-show="flag" type="fading-circle" :size="60" color="#007aff" class="loading"></mt-spinner>
     </div>
 </template>
 
 <script>
     import {Toast} from 'mint-ui';
-    import comment from '../subcomponents/Comment.vue';
     export default {
         data(){
             return {
+                flag: true,
                 time: new Date(),
                 newsList: [],
             }
@@ -53,8 +51,11 @@
         created(){
           this.getNews();
         },
+        updated(){
+            this.flag=false;
+        },
         components: {
-            comment
+
         },
         //hasad=1&miss=57&refresh=A&offset=0&size=10&callback=syrec3
         methods: {
@@ -111,10 +112,10 @@
         }
     }
     .loading {
-        position: absolute;
+        position: fixed;
         top: 50%;
         left: 50%;
         transform: translate3d(-50%,-50%,0);
-        /*z-index: 999;*/
+        z-index: 999;
     }
 </style>

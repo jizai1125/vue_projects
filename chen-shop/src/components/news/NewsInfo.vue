@@ -7,11 +7,11 @@
 </template>
 
 <script>
-    import comment from '../subcomponents/comment.vue';
+    import comment from '../subcomponents/Comment.vue';
     export default {
         name: "NewsInfo",
         components: {
-            comment,
+            comment
         },
         data(){
             return{
@@ -19,7 +19,7 @@
             }
         },
         created(){
-            this.getNewsInfo()
+            // this.getNewsInfo()
         },
         mounted(){
         },
