@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h4>发表评论-----{{artId}}</h4>
+        <h4>发表评论-----{{id}}</h4>
         <hr>
         <!--发表评论-->
         <form action="javascript;" class="comment">
@@ -52,7 +52,7 @@
     import {Toast} from 'mint-ui';
     export default {
         name: "Comments",
-        props: ['artId'],
+        props: ['id'],
         computed: {
         },
         data(){

@@ -8,7 +8,8 @@ import SearchContainer from './components/tabbar/SearchContainer.vue'
 import NewsList from './components/news/NewsList.vue'
 import NewsInfo from './components/news/NewsInfo.vue'
 //图片分享
-import PhotoShare from './components/photos/PhotoShare.vue'
+import PhotoList from './components/photos/PhotoList.vue'
+import PhotoInfo from './components/photos/PhotoInfo.vue'
 
 var router=new VueRouter({
     routes: [//配置路由规则
@@ -19,7 +20,8 @@ var router=new VueRouter({
         { path: '/search', component: SearchContainer },
         { path: '/home/newsList', component: NewsList},
         {path: '/home/newsInfo/:id', component: NewsInfo},
-        {path: '/home/photoShare', component: PhotoShare},
+        {path: '/home/photoList', component: PhotoList},
+        {path: '/home/photoInfo/:id', component: PhotoInfo},
     ],
     linkActiveClass: 'mui-active',  //激活时类名
 });

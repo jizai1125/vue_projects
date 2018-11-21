@@ -31,10 +31,10 @@
 
 4. 其他组件
 
-    新闻类|haha|haha
+    新闻资讯块|图片分享块|haha
     :---:|:---:|:---:
-    新闻列表、新闻详情|fd|fds
-    NewsList.vue、NewsInfo.vue|
+    新闻列表、新闻详情|图片列表、图片详情|fds
+    NewsList.vue、NewsInfo.vue|PhotoList.vue、PhotoInfo.vue
 ---
 
 >## Day02
@@ -108,15 +108,40 @@
 
 > #### 图片分享
 
-1. 创建图片分享列表组件PhotoShare.vue
-
+1. 创建图片分享列表组件PhotoList.vue
+    1. 3个分类：美女、动图、逗比
+    
 2. 配置路由
-    1. 导入PhotoShare.vue，设置path. path: /home/photoShare
+    1. 导入PhotoList.vue，设置path. path: /home/photoShare
     2. 设置router-link to属性
     
-3. 使用MUI卡片视图组件渲染数据
+3. 获取图片资源
+    1. 接口：**https://www.apiopen.top/satinGodApi?type=${cateId}&page=1**
+    2. type对应分类，type=1为美女，3为图片，4为动图，5为短视频
+    2. 根据图片分类对应的id请求相应的资源 
+    3. 使用MUI卡片视图组件渲染数据
+    4. 图片列表使用mint-ui 的懒加载组件lazyload，如果按需引入mint-ui组件的话则没有懒加载图标效果，所以完整引入mint-ui
 
+4. 分类
+    > 美图分类
+    - 只显示图片
+    > 动图、逗比分类
+    - 显示头像，用户名，发布时间，图片
+    - 功能：点赞、关注、评论
 
+5. 图片列表条状图片详情页
+    1. 创建图片详情组件，配置路由：path: /home/photoInfo/:图片对应的id
+    2. 根据图片对应的id发送请求，获取图片详情
+
+6. 图片详情页
+    1. 内容：标题、发表时间、浏览量、缩略图预览、评论组件
+    2. 缩略图预览使用vue-picture-swipe 组件，使用说明：**https://github.com/Fighter1125/vue-picture-swipe.git**
+    
+    
+    
+    
+    
+    
 ## 问题汇总
 1. 引入mui.js时会报错，底部tabbar点击无法切换。
 Unable to preventDefault inside passive event listener due to target being treated as passive
