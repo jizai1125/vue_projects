@@ -160,7 +160,6 @@
             },
             //获取更多评论
             loadMore(){
-                console.log('loadfffffffffffffffffff')
                 this.pageIndex++;
                 this.getComments()
             }
