@@ -1,14 +1,7 @@
 <template>
     <div>
         <!--顶部轮播图-->
-        <mt-swipe :auto="4000" ref="swipe" @change="">
-            <mt-swipe-item><img src="../../images/l1.jpg" alt=""></mt-swipe-item>
-            <mt-swipe-item><img src="../../images/l2.jpg" alt=""></mt-swipe-item>
-            <mt-swipe-item><img src="../../images/l3.jpg" alt=""></mt-swipe-item>
-            <mt-swipe-item><img src="../../images/l4.jpg" alt=""></mt-swipe-item>
-        </mt-swipe>
-        <!--<button @click="prev">pre</button>-->
-        <!--<button @click="next">next</button>-->
+        <swipe></swipe>
         <!--/顶部轮播图-->
         <!--导航栏navbar-->
         <div class="navbar">
@@ -26,7 +19,7 @@
                     </router-link>
                 </div>
                 <div class="mui-col-xs-4 navbar-item">
-                    <router-link to="/home/newsList">
+                    <router-link to="/home/goodsList">
                         <img src="../../images/menu3.png" alt="商品购买">
                         <p>商品购买</p>
                     </router-link>
@@ -58,7 +51,11 @@
 </template>
 
 <script>
+    import swipe from '../subcomponents/Swipe.vue';
     export default {
+        components: {
+            swipe
+        },
         data(){
             return{
                 // imgLists: [],   //轮播图图片
@@ -68,7 +65,7 @@
             // this.getSwipeImg();
         },
         methods: {
-            //获取图片数据,jsonp
+            //获取图片数据,jsonp,此接口是获取电影数据的，
             getSwipeImg(){
                 this.$http.jsonp('http://api.douban.com/v2/movie/top250',{params: {start: 5,count: 4}}).then(res=>{
                     console.log(res)
@@ -79,35 +76,12 @@
                     }
                 })
             },
-            //控制轮播图切换下一张
-            next(){
-                this.$refs.swipe.next()
-            },
-            //控制轮播图切换上一张
-            prev(){
-                console.log(this.$refs.swipe)
-                this.$refs.swipe.prev();
-            },
         }
     }
 </script>
 
 <style lang="less" scoped>
-    /*轮播图*/
-    .mint-swipe {
-        height: 200px;
-        @media screen and (min-width: 800px) {
-            & {
-                height: 350px;
-            }
-        }
-        .mint-swipe-item {
-            img {
-                height: 100%;
-                width: 100%;
-            }
-        }
-    }
+
     /*navbar*/
     .navbar {
         .navbar-item {
