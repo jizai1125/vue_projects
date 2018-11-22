@@ -4,25 +4,25 @@
         <div id="slider" class="mui-slider">
             <div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
                 <div class="mui-scroll">
-                    <a class="mui-control-item mui-active" :key="1" @click="cateId=1;getPhotosByCateId(1)">
+                    <a class="mui-control-item mui-active" :key="1" @tap="cateId=1;getPhotosByCateId(1)">
                         美图
                     </a>
-                    <a class="mui-control-item" :key="4" @click="cateId=4;getPhotosByCateId(4)">
+                    <a class="mui-control-item" :key="4" @tap="cateId=4;getPhotosByCateId(4)">
                         动图
                     </a>
-                    <a class="mui-control-item" :key="3" @click="cateId=3;getPhotosByCateId(3)">
+                    <a class="mui-control-item" :key="3" @tap="cateId=3;getPhotosByCateId(3)">
                         逗比
                     </a>
-                    <a class="mui-control-item" :key="" @click="">
+                    <a class="mui-control-item" :key="" @tap="">
                         逼逼
                     </a>
-                    <a class="mui-control-item" :key="" @click="">
+                    <a class="mui-control-item" :key="" @tap="">
                         哈哈
                     </a>
-                    <a class="mui-control-item" :key="" @click="">
+                    <a class="mui-control-item" :key="" @tap="">
                         呜呜
                     </a>
-                    <a class="mui-control-item" :key="" @click="">
+                    <a class="mui-control-item" :key="" @tap="">
                         嘤嘤
                     </a>
                 </div>
