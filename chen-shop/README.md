@@ -24,9 +24,9 @@
     
 2. 子组件
 
-    评论组件|haha|haha
+    评论组件|轮播组件|haha
     :---:|:---:|:---:
-    Comment.vue|fd|fds
+    Comment.vue|Swipe.vue|fds
 
 
 4. 其他组件
@@ -52,6 +52,8 @@
 1. 轮播图区域 
     * 使用 Mint-UI 的swipe轮播组件
         >在main.js中按需导入Swipe、SwipeItem组件，并注册组件
+        
+        >因为在其他地方也有用到轮播组件，所以封装为轮播子组件 Swipe.vue
 
 2. navbar 导航栏区域
     - 使用 MUI 的grid栅格组件
@@ -136,14 +138,45 @@
 6. 图片详情页
     1. 内容：标题、发表时间、浏览量、缩略图预览、评论组件
     2. 缩略图预览使用vue-picture-swipe 组件，使用说明：**https://github.com/Fighter1125/vue-picture-swipe.git**
+   
+> #### 商品购买
+
+1. 配置路由，点击跳转到商品列表页
+
+2. 创建商品列表组件，GoodsList.vue
+
+4. 获取商品列表数据
+
+5. 制作商品列表
+    1.  商品列表项样式，使用 **flex** 布局   
+    2.  点击加载更多按钮，发送请求获取数据，拼接到现有数据
+    3. 点击商品跳转商品详情页
     
-    
-    
+6. 制作商品详情页
+    1. 创建商品详情组件
+    2. 配置路由，path: /home/goodsInfo/:商品对应的id
+    3. 根据保存在路由param参数中的 id 请求对应的商品详情数据
+    4. 制作商品详情页样式，使用mui卡片样式
+
+7. 商品详情页功能实现
+    > 分为三个模块：商品轮播展示、商品操作区域、商品详情介绍
+    - 商品轮播展示
+        1. 使用 轮播子组件 Swipe.vue
+    - 商品操作区域
+        1. 购买数量加、减
+        2. 加入购物车、立即购买 
+    - 商品详情介绍
+        1. 图文介绍、商品评论              
     
     
     
 ## 问题汇总
-1. 引入mui.js时会报错，底部tabbar点击无法切换。
+1. 真机调试：
+   - 手机和电脑处于同一局域网，可以通过连同一WiFi
+   - 在项目中的package.json文件 的scripts项 'start'脚本添加 --host指令，然后将当前WiFi IP地址设置为 --host 的指令值
+   - 手机输入IP地址
+
+2. 引入mui.js时会报错，底部tabbar点击无法切换。
 Unable to preventDefault inside passive event listener due to target being treated as passive
     
     * 解决方法：
@@ -152,7 +185,7 @@ Unable to preventDefault inside passive event listener due to target being treat
     
     >方法2：因为类名为mui-tab-item有冲突，删除此类名，自己命名一个类名mui-tab-item-chen,样式和mui-tab-item一样
 
-2. 制作图片分享顶部导航滑动效果，使用mui scroll组件，滑动时会报错，和第一个问题一样的错误；
+3. 制作图片分享顶部导航滑动效果，使用mui scroll组件，滑动时会报错，和第一个问题一样的错误；
    <br>还有初始化时，要放在mounted函数钩子里，等待元素被挂载到DOM树再初始化，否则进入该页面时,无法滑动导航栏
     * 解决方法：
      

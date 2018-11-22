@@ -10,6 +10,9 @@ import NewsInfo from './components/news/NewsInfo.vue'
 //图片分享
 import PhotoList from './components/photos/PhotoList.vue'
 import PhotoInfo from './components/photos/PhotoInfo.vue'
+//商品购买
+import GoodsList from './components/goods/GoodsList.vue'
+import GoodsInfo from './components/goods/GoodsInfo.vue'
 
 var router=new VueRouter({
     routes: [//配置路由规则
@@ -22,6 +25,8 @@ var router=new VueRouter({
         {path: '/home/newsInfo/:id', component: NewsInfo},
         {path: '/home/photoList', component: PhotoList},
         {path: '/home/photoInfo/:id', component: PhotoInfo},
+        {path: '/home/goodsList', component: GoodsList},
+        {path: '/home/goodsInfo/:id', component: GoodsInfo, name: 'goodsInfo'},
     ],
     linkActiveClass: 'mui-active',  //激活时类名
 });
