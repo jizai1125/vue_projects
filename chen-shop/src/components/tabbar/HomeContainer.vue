@@ -1,7 +1,7 @@
 <template>
     <div>
         <!--顶部轮播图-->
-        <swipe></swipe>
+        <swipe :items="imgList" :isFull="true"></swipe>
         <!--/顶部轮播图-->
         <!--导航栏navbar-->
         <div class="navbar">
@@ -53,12 +53,14 @@
 <script>
     import swipe from '../subcomponents/Swipe.vue';
     export default {
-        components: {
-            swipe
-        },
         data(){
             return{
-                // imgLists: [],   //轮播图图片
+                imgList: [ //轮播图图片
+                    {src: '/src/images/l1.jpg'},
+                    {src: '/src/images/l2.jpg'},
+                    {src: '/src/images/l3.jpg'},
+                    {src: '/src/images/l4.jpg'},
+                ],
             }
         },
         created(){
@@ -67,16 +69,19 @@
         methods: {
             //获取图片数据,jsonp,此接口是获取电影数据的，
             getSwipeImg(){
-                this.$http.jsonp('http://api.douban.com/v2/movie/top250',{params: {start: 5,count: 4}}).then(res=>{
-                    console.log(res)
-                    if(!res.ok)return;
-                    var data=res.body.subjects;
-                    for(var item of data){
-                        this.imgLists.push({url: item.images.small})
-                    }
-                })
+                // this.$http.jsonp('http://api.douban.com/v2/movie/top250',{params: {start: 5,count: 4}}).then(res=>{
+                //     console.log(res)
+                //     if(!res.ok)return;
+                //     var data=res.body.subjects;
+                //     for(var item of data){
+                //         this.imgLists.push({url: item.images.small})
+                //     }
+                // })
             },
-        }
+        },
+        components: { //注册组件
+            swipe
+        },
     }
 </script>
 
