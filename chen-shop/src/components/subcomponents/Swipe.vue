@@ -1,10 +1,9 @@
 <template>
     <div>
-        <mt-swipe :auto="4000" ref="swipe" @change="">
-            <mt-swipe-item><img src="../../images/l1.jpg" alt=""></mt-swipe-item>
-            <mt-swipe-item><img src="../../images/l2.jpg" alt=""></mt-swipe-item>
-            <mt-swipe-item><img src="../../images/l3.jpg" alt=""></mt-swipe-item>
-            <mt-swipe-item><img src="../../images/l4.jpg" alt=""></mt-swipe-item>
+        <mt-swipe :auto="4000" ref="swipe"  @change="">
+            <mt-swipe-item v-for="(item,i) in items" :key="i">
+                <img :src="item.src" alt="" :class="{'full': isFull}">
+            </mt-swipe-item>
         </mt-swipe>
         <!--<button @click="prev">pre</button>-->
         <!--<button @click="next">next</button>-->
@@ -13,8 +12,13 @@
 
 <script>
     export default {
+        props:['items','isFull'], //items为图片资源数组，isFull为设置宽度是否100%
         name: "Swipe",
-        data(){},
+        data(){
+            return{
+
+            }
+        },
         methods: {
 
             //控制轮播图切换下一张
@@ -46,10 +50,13 @@
             }
         }
         .mint-swipe-item {
+            text-align: center;
             img {
                 height: 100%;
-                width: 100%;
             }
+        }
+        .full {
+            width: 100%;
         }
     }
 </style>
