@@ -24,17 +24,17 @@
     
 2. 子组件
 
-    评论组件|轮播组件|haha
-    :---:|:---:|:---:
-    Comment.vue|Swipe.vue|fds
+    评论组件|轮播组件|数字选择框|
+    :---:|:---:|:---:|
+    Comment.vue|Swipe.vue|Numbox_goodsInfo.vue|
 
 
 4. 其他组件
 
-    新闻资讯块|图片分享块|haha
-    :---:|:---:|:---:
-    新闻列表、新闻详情|图片列表、图片详情|fds
-    NewsList.vue、NewsInfo.vue|PhotoList.vue、PhotoInfo.vue
+    新闻资讯块|图片分享块|商品购买|
+    :---:|:---:|:---:|
+    新闻列表、新闻详情|图片列表、图片详情|商品列表、商品详情、商品介绍、商品评价|
+    NewsList.vue、NewsInfo.vue|PhotoList.vue、PhotoInfo.vue|GoodsList.vue、GoodsInfo.vue、GoodsDesc.vue、GoodsCmts.vue|
 ---
 
 >## Day02
@@ -54,6 +54,8 @@
         >在main.js中按需导入Swipe、SwipeItem组件，并注册组件
         
         >因为在其他地方也有用到轮播组件，所以封装为轮播子组件 Swipe.vue
+        - 使用时，绑定该组件一个items属性，值为数组，格式如：[{src: '''}，{src: '''}]，src必选
+        - 还可绑定isFull属性，值为布尔值，设置图片宽度是否100%,不设置则自适应
 
 2. navbar 导航栏区域
     - 使用 MUI 的grid栅格组件
@@ -138,6 +140,8 @@
 6. 图片详情页
     1. 内容：标题、发表时间、浏览量、缩略图预览、评论组件
     2. 缩略图预览使用vue-picture-swipe 组件，使用说明：**https://github.com/Fighter1125/vue-picture-swipe.git**
+
+>## Day5
    
 > #### 商品购买
 
@@ -164,9 +168,16 @@
         1. 使用 轮播子组件 Swipe.vue
     - 商品操作区域
         1. 购买数量加、减
+            - 使用mui numbox组件，将该组件封装为子组件 Numbox_goodsInfo.vue
         2. 加入购物车、立即购买 
+            - 点击加入购物车按钮，有小球动画掉到购物车
+            - Numbox_goodsInfo.vue 子组件通过监听input框change事件，向数值传给父组件 GoodsInfo.vue
+            - 父组件 GoodsInfo.vue 向子组件 Numbox_goodsInfo.vue 传库存值设置子组件的最大可选数量
+            > 注意： 因为父组件传来的库存值max是异步获取的，所以还没获取到之前max是undefined，可通过监听属性来更新
     - 商品详情介绍
-        1. 图文介绍、商品评论              
+        1. 图文介绍、商品评论
+            - 创建商品介绍组件 GoodsDesc.vue，根据id获取商品详情数据
+            - 创建商品评论组件 GoodsCmts.vue,引入评论子组件，根据id获取评论数据              
     
     
     

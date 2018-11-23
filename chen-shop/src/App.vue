@@ -16,10 +16,11 @@
                 <span class="mui-tab-label">首页</span>
             </router-link>
             <router-link class="mui-tab-item-chen" to="/member">
-                <span class="mui-icon iconfont icon-wode"><span class="mui-badge">9</span></span>
+                <span class="mui-icon iconfont icon-wode"></span>
                 <span class="mui-tab-label">会员</span>
             </router-link>
             <router-link class="mui-tab-item-chen" to="/shopcar">
+                <span id="badge" v-if="goods_count!==0" class="mui-badge mui-badge-danger">{{goods_count}}</span>
                 <span class="mui-icon iconfont icon-gouwuche"></span>
                 <span class="mui-tab-label">购物车</span>
             </router-link>
@@ -32,19 +33,16 @@
 </template>
 
 <script>
-    // import  mui from './lib/mui/js/mui.js';
-    // mui('body').on('tap','a',function(){document.location.href=this.href;});
-
-    export default {
+        export default {
         data(){
             return {
+                goods_count: 0,
             }
         },
         mounted(){
 
         },
         methods: {
-
         }
     }
 </script>
@@ -63,6 +61,15 @@
         }
         .mui-bar-tab {
             z-index: 999;
+            .mui-tab-item-chen {
+                position: relative;
+                .mui-badge {
+                    position: absolute;
+                    left: 50%;
+                    top: 0;
+                    z-index: 1000;
+                }
+            }
         }
     }
     .v-enter {
