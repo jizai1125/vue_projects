@@ -1,86 +1,113 @@
 <template>
     <div>
+        <!--小球过渡动画-->
+        <!--<transition>-->
+            <!--<span @animationend="animationend" v-if="flag" class="ball mui-badge mui-badge-danger">1</span>-->
+        <!--</transition>-->
         <!--图片展示-->
        <div class="mui-card">
-           <swipe class="mui-card-content"></swipe>
+           <swipe class="mui-card-content" :items="imagesList"></swipe>
        </div>
         <!--商品购买-->
         <div class="mui-card shop">
             <div class="mui-card-header">
-                小米Note{{goodsId}}全网通
+                {{goodsInfo.title}}{{goodsId}}
             </div>
             <div class="mui-card-content">
                 <p class="price">
-                    市场价：<span class="old">￥2799</span>
-                    销售价：<span class="now">￥1111</span>
+                    市场价：<del>￥{{goodsInfo.price_market}}</del>&nbsp;&nbsp;
+                    销售价：<span class="now">￥{{goodsInfo.price_sell}}</span>
                 </p>
                 <p>购买数量：
-                    <input type="button" value="-">
-                    <input type="button" value="1">
-                    <input type="button" value="+">
+                    <numbox :max="goodsInfo.stock" @getCount="getCount"></numbox>
                 </p>
             </div>
             <div class="mui-card-footer">
-                <button typeof="button" class="mui-btn mui-btn-danger" >加入购物车</button>
+                <button typeof="button" class="mui-btn mui-btn-danger">加入购物车</button>
                 <button typeof="button" class="mui-btn mui-btn-primary">立即购买</button>
             </div>
         </div>
+        <!--商品详情、评论-->
         <div class="mui-card product_des">
             <div class="mui-card-header">
                 商品参数
             </div>
             <div class="mui-card-content">
-                <p>商品货号 ： <span>SF4323342043</span></p>
-                <p>库存情况 ： <span>60</span>件</p>
-                <p>上架时间 ：<span>2018-13-12 12:21:11</span></p>
+                <p>商品货号 ：{{goodsInfo.goods_no}}</p>
+                <p>库存情况 ：{{goodsInfo.stock}}件</p>
+                <p>上架时间 ：{{goodsInfo.add_time}}</p>
             </div>
             <div class="mui-card-footer">
-                <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined">图文介绍</button>
-                <button type="button" class="mui-btn mui-btn-danger mui-btn-outlined">商品评论</button>
+                <!--两种方式实现路由跳转-->
+                <router-link tag="button" to="/home/goodsDesc/32" type="button" class="mui-btn mui-btn-primary mui-btn-outlined">图文介绍</router-link>
+                <button @click="goComments(goodsId)" type="button" class="mui-btn mui-btn-danger mui-btn-outlined">商品评论</button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import mui from '../../lib/mui/js/mui.js';
     // 导入轮播子组件
     import swipe from '../subcomponents/Swipe.vue';
+    //导入数字输入框组件
+    import numbox from '../subcomponents/Numbox_goodsInfo.vue';
     export default {
         name: "GoodsInfo",
-        components: {
-            swipe
-        },
         data(){
             return {
                 goodsId: null, //商品id
-                images: [
-                    {
-                        src: 'https://avatars2.githubusercontent.com/u/33979706?s=460&v=4', //预览图图
-                        thumbnail: 'https://avatars0.githubusercontent.com/u/33979706?s=40&v=4', //缩略图
-                        w: 300, //预览图宽度
-                        h: 300, //预览图高度
-                        title: '300'    //底部标题
-                    },
-                    {
-                        src: 'https://avatars2.githubusercontent.com/u/33979706?s=460&v=4',
-                        thumbnail: 'https://avatars0.githubusercontent.com/u/33979706?s=40&v=4',
-                        w: 400,
-                        h: 400,
-                        title: '400'
-                    },
-                    {
-                        src: 'https://avatars2.githubusercontent.com/u/33979706?s=460&v=4',
-                        thumbnail: 'https://avatars0.githubusercontent.com/u/33979706?s=40&v=4',
-                        w: 500,
-                        h: 500,
-                        title: '500'
-                    },
+                selectedCount: 1,
+                imagesList: [//轮播图图片
+                    {src: '/src/images/menu1.png'},
+                    {src: '/src/images/menu2.png'},
+                    {src: '/src/images/menu3.png'},
+                    {src: '/src/images/menu4.png'},
                 ],
+                goodsInfo: {
+                        id: this.goodsId,
+                        title: '小米Note',
+                        add_time: Date.now(),
+                        goods_no: 'SD80750323',
+                        price_market: 2699,
+                        price_sell: 2300,
+                        stock: 23
+                    },
+
             }
         },
         created(){
             this.goodsId=this.$route.params.id;
-        }
+        },
+        mounted(){
+        },
+        methods: {
+            // 根据 goodsId 获取轮播图图片
+            getImagesList(){
+              this.$http.get().then()
+            },
+            //根据 goodsId 获取商品详情数据
+            getGoodsInfo(){
+              this.$http.get().then()
+            },
+            //获取numbox子组件的数值
+            getCount(count){
+              this.selectedCount=count;
+              console.log(this.selectedCount)
+            },
+            //跳转到评论页
+            goComments(id){
+                this.$router.push({name: 'goodsCmts', params: {id}})
+            },
+            //监听动画结束事件
+            // animationend(){
+            //     this.flag=false
+            // }
+        },
+        components: {
+            swipe,
+            numbox,
+        },
     }
 </script>
 
@@ -101,10 +128,6 @@
             padding: 5px;
             .mui-card-content{
                 .price {
-                    .old {
-                        text-decoration: line-through;
-                        font-size: 12px;
-                    }
                     .now {
                         color: red;
                         font-size: 16px;
