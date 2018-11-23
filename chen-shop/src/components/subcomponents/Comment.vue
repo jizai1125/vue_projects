@@ -66,7 +66,7 @@
             }
         },
         created(){
-            this.getHotComments()
+            this.getHotComments(this.artistId)
         },
         methods: {
             //添加评论，需要保存到服务器，然后在请求刷新评论，因为没有服务器所以只添加到数组
@@ -75,7 +75,7 @@
                 if(!this.content.trim()){
                     Toast({
                         message: '不能为空！',
-                        duration: 500,
+                        duration: 600,
                     });
                     return;
                 }
@@ -83,7 +83,7 @@
                 // this.$http.post('http://jizai.com').then();
                 //手动添加到评论数组开头
                 let id=Math.random()*1000*Math.random()*1000;
-                this.hotComments.unshift({
+                this.normalComments.unshift({
                     id: id,
                     userName: 'jizai',
                     avatar: 'https://avatars0.githubusercontent.com/u/33979706?s=40&v=4',
@@ -99,8 +99,8 @@
                 },500)
             },
             //获取热评数据
-            getHotComments(){
-                this.$http.get('https://www.apiopen.top/satinCommentApi',{params:{id:this.artistId,page: this.pageIndex}})
+            getHotComments(id){
+                this.$http.get('https://www.apiopen.top/satinCommentApi',{params:{id:id,page: this.pageIndex}})
                     .then(function(res){
                         //热评数据
                         var cmts_hot=res.body.data.hot.list;
@@ -119,9 +119,9 @@
                     })
             },
             //获取评论数据
-            getComments(){
+            getComments(id){
                 var _this=this;
-                this.$http.get('https://www.apiopen.top/satinCommentApi',{params:{id:this.artistId,page: this.pageIndex}})
+                this.$http.get('https://www.apiopen.top/satinCommentApi',{params:{id:id,page: this.pageIndex}})
                     .then(function(res){
                         console.log(res)
                         //其他评论数据
@@ -161,7 +161,7 @@
             //获取更多评论
             loadMore(){
                 this.pageIndex++;
-                this.getComments()
+                this.getComments(this.artistId)
             }
         }
     }
