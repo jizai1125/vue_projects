@@ -6,9 +6,52 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 //引入路由文件
 import router from './router.js';
-//导入vue-resource
+//导入，安装vue-resource
 import VueResource from 'vue-resource';
 Vue.use(VueResource);
+//导入,安装vuex
+import Vuex from 'vuex';
+Vue.use(Vuex);
+//进入页面时，先从碧迪存储获取购物车的商品信息
+var shopCar=JSON.parse(localStorage.getItem('shopCar') || '[]');
+var store = new Vuex.Store({
+    state: {
+        shopCar: shopCar, //存购物车中商品的数据，每一个商品用一个对象保存
+        //{id: 商品id, count: 商品数量， price: 商品单价，selected: 商品是否被选中}
+    },
+    mutations: {
+        addToShopCar: function (state, goods) {
+            //如果之前添加获取一样的商品，只需更新数量
+            let flag = false; //标志购物车有无此商品，true代表有
+            state.shopCar.some(item => {
+                if (item.id === goods.id) {
+                    item.count += parseInt(goods.count);
+                    flag = true;
+                    return true;
+                }
+            })
+            if (!flag){
+                state.shopCar.push({
+                    id: goods.id,
+                    count: goods.count,
+                    price: goods.price,
+                    selected: goods.selected
+                })
+            }
+            // 保存到localStorage
+            localStorage.setItem('shopCar', JSON.stringify(state.shopCar));
+        },
+    },
+    getters: {
+        getCount(state) {
+            let count = 0;
+            state.shopCar.forEach(item => {
+                count += item.count;
+            })
+            return count;
+        }
+    }
+});
 //设置全局根目录
 // Vue.http.options.root='/root';
 //按需导入mint-ui组件
@@ -52,5 +95,6 @@ var vm=new Vue({
     },
 
     render: c=>c(app),
-    router
+    router,
+    store,  //挂载store管理状态对象
 });
