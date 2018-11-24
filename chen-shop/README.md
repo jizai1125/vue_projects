@@ -171,9 +171,23 @@
             - 使用mui numbox组件，将该组件封装为子组件 Numbox_goodsInfo.vue
         2. 加入购物车、立即购买 
             - 点击加入购物车按钮，有小球动画掉到购物车
-            - Numbox_goodsInfo.vue 子组件通过监听input框change事件，向数值传给父组件 GoodsInfo.vue
+            - Numbox_goodsInfo.vue 子组件通过监听input框change事件，将购买数量数值传给父组件 GoodsInfo.vue
             - 父组件 GoodsInfo.vue 向子组件 Numbox_goodsInfo.vue 传库存值设置子组件的最大可选数量
             > 注意： 因为父组件传来的库存值max是异步获取的，所以还没获取到之前max是undefined，可通过监听属性来更新
+            - ####通过 Vuex 保存状态数据实现添加到购物车的功能
+             1. 在store state属性中创建一个数组shopCar保存商品信息对象，
+             2. 在store mutations属性设置添加到state中shopCar数组的方法，同时也保存到本地存储localstorage，每次进入页面时，先获取本地存储，然后赋给state里的shopCar数组
+             3. 在store getter属性中设置一个方法获取总商品数量
+             4. 购物车徽标值 通过$store.getters.***获取设置
+                
+            > **组件中使用Vuex**： 
+            > 1. 装包：**npm i vuex -S**  
+            > 2. main.js导入：**import Vuex from 'vuex';**
+            > 3. 安装：**Vue.use(Vuex);**
+            > 4. 创建Vuex实例: **var store=new Vuex({ state: {}, mutations:{}, getters:{ } })**
+            > 5. 在vue实例中注册：var vm=new Vue({ store })     
+            > - 访问state中的数据使用 **this.$store.state.***** 或者 **this.$store.commit('方法名',参数).** 获取,不建议直接访问state中的数据
+            > - 访问getters中的方法，**this.$store.getters.*****,getters类似于vue中的过滤器或者计算属性，如果在访问state中的数据时要经过处理，用getters
     - 商品详情介绍
         1. 图文介绍、商品评论
             - 创建商品介绍组件 GoodsDesc.vue，根据id获取商品详情数据

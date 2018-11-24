@@ -35,7 +35,8 @@
     "vue": "^2.5.17",
     "vue-picture-swipe": "^0.4.0",
     "vue-resource": "^1.5.1",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
   },
   "description": ""
 }
