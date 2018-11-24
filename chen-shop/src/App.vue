@@ -20,7 +20,7 @@
                 <span class="mui-tab-label">会员</span>
             </router-link>
             <router-link class="mui-tab-item-chen" to="/shopcar">
-                <span id="badge" v-if="goods_count!==0" class="mui-badge mui-badge-danger">{{goods_count}}</span>
+                <span id="badge" v-show="$store.getters.getCount!==0" class="mui-badge mui-badge-danger">{{$store.getters.getCount}}</span>
                 <span class="mui-icon iconfont icon-gouwuche"></span>
                 <span class="mui-tab-label">购物车</span>
             </router-link>
@@ -34,16 +34,18 @@
 
 <script>
         export default {
-        data(){
-            return {
-                goods_count: 0,
+            data(){
+                return {
+                }
+            },
+            mounted(){
+            },
+            created(){
+            },
+            updated(){
+            },
+            methods: {
             }
-        },
-        mounted(){
-
-        },
-        methods: {
-        }
     }
 </script>
 
