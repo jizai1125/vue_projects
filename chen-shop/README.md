@@ -1,5 +1,7 @@
 # Vue-shop项目
 
+>## ![界面](https://github.com/Fighter1125/Vue-projects/tree/master/chen-shop/src/images/vue-show.png ''界面'')
+
 >## Day01
 
 ## 构建项目
@@ -7,7 +9,7 @@
         
 1. main.js 入口文件
 
-2. router.js 路由分发、配置文件
+2. router.js 路由配置文件
 
 ### App主要的组件
 
