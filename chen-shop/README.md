@@ -1,6 +1,6 @@
 # Vue-shop项目
 
->## ![界面](https://github.com/Fighter1125/Vue-projects/tree/master/chen-shop/src/images/vue-show.png ''界面'')
+>## ![界面](https://avatars0.githubusercontent.com/u/33979706?s=40&v=4 ''界面'')
 
 >## Day01
 
