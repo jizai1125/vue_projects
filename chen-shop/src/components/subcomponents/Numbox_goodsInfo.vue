@@ -16,7 +16,7 @@
             return {}
         },
         created(){
-            console.log(this.max)
+            // console.log(this.max)
         },
         mounted(){
             //初始化数字输入框，一定要在mounted方法里调用，否则会报错哦，因为要等元素挂载到DOM树，选择器才能选择到
