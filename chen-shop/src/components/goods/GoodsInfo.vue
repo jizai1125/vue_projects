@@ -23,7 +23,7 @@
                 </p>
             </div>
             <div class="mui-card-footer">
-                <button typeof="button" class="mui-btn mui-btn-danger">加入购物车</button>
+                <button typeof="button" class="mui-btn mui-btn-danger" @click="addToShopCar">加入购物车</button>
                 <button typeof="button" class="mui-btn mui-btn-primary">立即购买</button>
             </div>
         </div>
@@ -47,7 +47,6 @@
 </template>
 
 <script>
-    import mui from '../../lib/mui/js/mui.js';
     // 导入轮播子组件
     import swipe from '../subcomponents/Swipe.vue';
     //导入数字输入框组件
@@ -93,7 +92,19 @@
             //获取numbox子组件的数值
             getCount(count){
               this.selectedCount=count;
-              console.log(this.selectedCount)
+              // console.log(this.selectedCount)
+            },
+            //商品数据添加到购物车
+            addToShopCar(){
+                // 1.拼接一个商品信息对象id,price,count,selected
+                let goodsInfo={
+                    id: this.goodsId,
+                    count: this.selectedCount,
+                    price: this.goodsInfo.price_sell,
+                    selected: true
+                }
+                //2. 保存到store的state中
+                this.$store.commit('addToShopCar',goodsInfo)
             },
             //跳转到评论页
             goComments(id){
