@@ -1,17 +1,17 @@
 <template>
     <div class="shopcarList">
-        <h1>shopcar</h1>
-        <div class="mui-card">
+        <!--{id: 商品id, count: 商品数量， price: 商品单价，selected: 商品是否被选中}-->
+        <div class="mui-card" v-for="(item,index) in goodsList" :key="item.id">
             <div class="mui-card-content">
                 <div class="mui-card-content-inner">
                     <mt-switch></mt-switch>
                     <img src="../../images/menu1.png" alt="">
                     <div class="info">
-                        <h1>小米积分多少反倒是法尔符文法师废物是否违反</h1>
+                        <h1>小米{{item.id}}</h1>
                         <p>
-                            <span class="price">￥320</span>
-                            <numbox></numbox>
-                            <a href="#">删除</a>
+                            <span class="price">￥{{item.price}}</span>
+                            <numbox :goodsId="item.id" :count="item.count"></numbox>
+                            <a href="#" @click.prevent="delGoods(item.id,index)">删除</a>
                         </p>
                     </div>
                 </div>
@@ -29,16 +29,38 @@
 </template>
 
 <script>
-    import numbox from '../subcomponents/Numbox_ShopCar.vue'
+    import numbox from '../subcomponents/Numbox_shopCar.vue'
     export default {
         name: "shopcar",
         data(){
             return {
-
+                //思路： 根据store里的商品id发送请求获取商品相关的数据
+                // 因为没有接口，所以直接将store里的数据赋值给goodsList
+                goodsList: [], //商品列表
             }
         },
+        created(){
+            this.goodsList=this.$store.state.shopCar;
+            // this.getGoodsList();
+        },
+        updated(){
+        },
         methods: {
-
+            //根据id获取商品列表
+            getGoodsList(){
+                var idArr=[]; //购物车所有商品id
+                this.$store.state.shopCar.forEach(item=>{
+                    idArr.push(item.id)
+                })
+                // this.$http.get('url'+idArr.join(',')).then(result=>{
+                //
+                //
+                // })
+            },
+            delGoods(id,index){
+                this.goodsList.splice(index,1)
+                this.$store.commit('removeGoods',id)
+            }
         },
         components: {
             numbox
