@@ -24,9 +24,9 @@
     
 2. 子组件
 
-    评论组件|轮播组件|数字选择框|
-    :---:|:---:|:---:|
-    Comment.vue|Swipe.vue|Numbox_goodsInfo.vue|
+    评论组件|轮播组件|数字选择框(商品详情页)|数字选择框(购物车)
+    :---:|:---:|:---:|:---:|
+    Comment.vue|Swipe.vue|Numbox_goodsInfo.vue|Numbox_shopCar.vue
 
 
 4. 其他组件
@@ -193,8 +193,15 @@
             - 创建商品介绍组件 GoodsDesc.vue，根据id获取商品详情数据
             - 创建商品评论组件 GoodsCmts.vue,引入评论子组件，根据id获取评论数据              
     
-    
-    
+>## Day6
+   
+> #### 购物车页 ShopCarContainer.vue
+
+1. 创建商品列表样式(使用MUI卡片视图样式)
+    1. 单选框（mint-switch组件）、图片、标题、价格、数字选择框（创建 Numbox_shopCar.vue组件）、删除键    
+2. 商品数据获取
+    1. 根据存在store里的所有商品id发送请求获取商品相关的数据，再渲染到页面上
+    2. 商品的购买数量从store里面获取
 ## 问题汇总
 1. 真机调试：
    - 手机和电脑处于同一局域网，可以通过连同一WiFi
