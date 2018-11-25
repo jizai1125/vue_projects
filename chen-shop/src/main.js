@@ -20,7 +20,8 @@ var store = new Vuex.Store({
         //{id: 商品id, count: 商品数量， price: 商品单价，selected: 商品是否被选中}
     },
     mutations: {
-        addToShopCar: function (state, goods) {
+        //添加商品到shopCar
+        addToShopCar(state, goods) {
             //如果之前添加获取一样的商品，只需更新数量
             let flag = false; //标志购物车有无此商品，true代表有
             state.shopCar.some(item => {
@@ -41,12 +42,32 @@ var store = new Vuex.Store({
             // 保存到localStorage
             localStorage.setItem('shopCar', JSON.stringify(state.shopCar));
         },
+        //跟新shopCar中对应商品的数量count
+        updateShopCar(state, goods){
+            state.shopCar.some(item=>{
+                if(item.id===goods.id){
+                    item.count=parseInt(goods.count);
+                    return true;
+                }
+            })
+            localStorage.setItem('shopCar',JSON.stringify(state.shopCar));
+        },
+        //从shopCar中删除商品
+        removeGoods(state,goodsId){
+            state.shopCar.some((item,index)=>{
+                if(item.id===goodsId){
+                    state.shopCar.splice(index,1);
+                    return true;
+                }
+            })
+            localStorage.setItem('shopCar',JSON.stringify(state.shopCar));
+        }
     },
     getters: {
         getCount(state) {
             let count = 0;
             state.shopCar.forEach(item => {
-                count += item.count;
+                count += parseInt(item.count);
             })
             return count;
         }
