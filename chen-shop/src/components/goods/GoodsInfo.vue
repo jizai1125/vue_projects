@@ -69,7 +69,7 @@
                         add_time: Date.now(),
                         goods_no: 'SD80750323',
                         price_market: 2699,
-                        price_sell: 2300,
+                        price_sell: Math.floor(2300*Math.random()),
                         stock: 23
                     },
 
