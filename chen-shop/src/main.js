@@ -13,7 +13,7 @@ Vue.use(VueResource);
 import Vuex from 'vuex';
 Vue.use(Vuex);
 //进入页面时，先从碧迪存储获取购物车的商品信息
-var shopCar=JSON.parse(localStorage.getItem('shopCar') || '[]');
+var shopCar=JSON.parse(window.localStorage.getItem('shopCar') || '[]');
 var store = new Vuex.Store({
     state: {
         shopCar: shopCar, //存购物车中商品的数据，每一个商品用一个对象保存
@@ -40,17 +40,17 @@ var store = new Vuex.Store({
                 })
             }
             // 保存到localStorage
-            localStorage.setItem('shopCar', JSON.stringify(state.shopCar));
+            window.localStorage.setItem('shopCar', JSON.stringify(state.shopCar));
         },
-        //跟新shopCar中对应商品的数量count
-        updateShopCar(state, goods){
+        //更新新shopCar中对应商品的数量count
+        updateGoodsCount(state, goods){
             state.shopCar.some(item=>{
                 if(item.id===goods.id){
                     item.count=parseInt(goods.count);
                     return true;
                 }
             })
-            localStorage.setItem('shopCar',JSON.stringify(state.shopCar));
+            window.localStorage.setItem('shopCar',JSON.stringify(state.shopCar));
         },
         //从shopCar中删除商品
         removeGoods(state,goodsId){
@@ -60,16 +60,42 @@ var store = new Vuex.Store({
                     return true;
                 }
             })
-            localStorage.setItem('shopCar',JSON.stringify(state.shopCar));
+            window.localStorage.setItem('shopCar',JSON.stringify(state.shopCar));
+        },
+        // 更新shopCar选中状态
+        updateGoodsSelected(state,goods){
+            state.shopCar.some(item=>{
+                if(item.id===goods.id){
+                    item.selected=goods.selected;
+                    return true;
+                }
+            })
+            // 更新到localStorage
+            window.localStorage.setItem('shopCar',JSON.stringify(state.shopCar));
         }
     },
     getters: {
+        // 获取购物车中商品总数量
         getCount(state) {
             let count = 0;
             state.shopCar.forEach(item => {
                 count += parseInt(item.count);
             })
             return count;
+        },
+        // 获取选中商品的数量和总价
+        getGoodsCountAndAmount(state){
+            let goods={
+                count: 0,
+                amount: 0
+            };
+            state.shopCar.forEach(item=>{
+                if(item.selected){
+                    goods.count+=parseInt(item.count);
+                    goods.amount+=item.count*item.price;
+                }
+            })
+            return goods;
         }
     }
 });
