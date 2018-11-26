@@ -123,7 +123,7 @@
                 var _this=this;
                 this.$http.get('https://www.apiopen.top/satinCommentApi',{params:{id:id,page: this.pageIndex}})
                     .then(function(res){
-                        console.log(res)
+                        // console.log(res)
                         //其他评论数据
                         var cmts_normal=res.body.data.normal.list;
                         if(res.body.code!==200){
