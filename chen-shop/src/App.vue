@@ -1,10 +1,12 @@
 <template>
     <div class="app-container">
         <!--头部-->
-        <header class="mui-bar mui-bar-nav">
-            <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-            <h1 class="mui-title">吉仔</h1>
-        </header>
+        <mt-header class="navbar" fixed title="吉仔啦">
+            <a @click="goBack" slot="left">
+                <mt-button icon="back" v-show="flag">返回</mt-button>
+            </a>
+            <mt-button icon="more" slot="right"></mt-button>
+        </mt-header>
         <!--router-view-->
         <transition mode="">
             <router-view></router-view>
@@ -36,15 +38,25 @@
         export default {
             data(){
                 return {
+                    flag: false, //是否显示放回键
                 }
             },
-            mounted(){
-            },
             created(){
+                this.flag=this.$route.path!=='/home';
             },
-            updated(){
+            watch: {
+                '$route': function(newVal){
+                    if(newVal.path==='/home'){
+                        this.flag=false;
+                    }else {
+                        this.flag=true;
+                    }
+                }
             },
             methods: {
+                goBack(){
+                    this.$router.go(-1);
+                }
             }
     }
 </script>
@@ -54,12 +66,8 @@
         padding-top: 44px;
         padding-bottom: 50px;
         overflow-x: hidden; //隐藏滚动条
-        .mui-title,
-        .mui-action-back {
-            color: #fff;
-        }
-        .mui-bar-nav {
-            background: #007aff;
+        .navbar {
+            height: 44px;
         }
         .mui-bar-tab {
             z-index: 999;
