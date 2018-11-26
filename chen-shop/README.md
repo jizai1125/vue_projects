@@ -1,7 +1,7 @@
 # Vue-shop项目
 
 >## Day01
-![界面](https://github.com/Fighter1125/Vue-projects/blob/master/chen-shop/src/show.gif)
+![img](https://github.com/Fighter1125/Vue-projects/blob/master/chen-shop/src/images/show.gif)
 ## 构建项目
 ### 主要文件
         
