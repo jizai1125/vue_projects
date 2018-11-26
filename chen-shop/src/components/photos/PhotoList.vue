@@ -101,7 +101,6 @@
                                 image: obj.url
                             })
                         }
-                        console.log(tempArr)
                         this.photos=tempArr;
                     })
                     //直接返回
@@ -127,7 +126,6 @@
                     }
                     //拼接到实例变量保存
                     this.photos = tempArr;
-                    console.log(res)
                 })
             },
         }
