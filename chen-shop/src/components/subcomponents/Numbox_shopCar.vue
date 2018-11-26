@@ -25,7 +25,7 @@
                 if(count<=0){
                     this.$store.commit('removeGoods',this.goodsId)
                 }
-                this.$store.commit('updateShopCar',{
+                this.$store.commit('updateGoodsCount',{
                     id: this.goodsId,
                     count: this.$refs.numbox.value
                 })
