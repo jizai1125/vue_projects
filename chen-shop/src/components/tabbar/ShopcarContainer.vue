@@ -4,7 +4,9 @@
         <div class="mui-card" v-for="(item,index) in goodsList" :key="item.id">
             <div class="mui-card-content">
                 <div class="mui-card-content-inner">
-                    <mt-switch></mt-switch>
+                    <mt-switch
+                            v-model="item.selected"
+                    @change="selectedChange(item.id,item.selected)"></mt-switch>
                     <img src="../../images/menu1.png" alt="">
                     <div class="info">
                         <h1>小米{{item.id}}</h1>
@@ -17,11 +19,17 @@
                 </div>
             </div>
         </div>
-        <!--结算-->
+        <!--结算区-->
         <div class="mui-card">
             <div class="mui-card-content">
-                <div class="mui-card-content-inner">
-                    Fsdfew佛挡杀佛fdsfsdfdsfds
+                <div class="mui-card-content-inner settle">
+                    <div>
+                        <p>总计（不含运费）</p>
+                        <p>已勾选商品
+                            <span class="red">{{selectedGoods.count}}</span>件，总价：<span class="red">￥{{selectedGoods.amount}}</span>
+                        </p>
+                    </div>
+                    <button class="mui-btn mui-btn-danger mui-pull-right" type="button">结算</button>
                 </div>
             </div>
         </div>
@@ -37,13 +45,17 @@
                 //思路： 根据store里的商品id发送请求获取商品相关的数据
                 // 因为没有接口，所以直接将store里的数据赋值给goodsList
                 goodsList: [], //商品列表
+                selectedGoods: {}, //选中的商品数量和总价
             }
         },
         created(){
-            this.goodsList=this.$store.state.shopCar;
+            //获取商品列表
             // this.getGoodsList();
+            this.goodsList=this.$store.state.shopCar;
+            this.selectedGoods=this.$store.getters.getGoodsCountAndAmount;
         },
         updated(){
+            this.selectedGoods=this.$store.getters.getGoodsCountAndAmount;
         },
         methods: {
             //根据id获取商品列表
@@ -57,9 +69,14 @@
                 //
                 // })
             },
+            //购物车中删除对应商品，同步更新到store
             delGoods(id,index){
                 this.goodsList.splice(index,1)
                 this.$store.commit('removeGoods',id)
+            },
+            // 监听单选框状态改变，同步到store
+            selectedChange(id,selected){
+                this.$store.commit('updateGoodsSelected',{id: id, selected: selected})
             }
         },
         components: {
@@ -94,6 +111,12 @@
             .price {
                 color: red;
                 font-weight: bold;
+            }
+        }
+        /*结算区*/
+        .settle {
+            .red {
+                color: red;
             }
         }
     }
