@@ -3,33 +3,29 @@
 >## Day01
 ![img](https://github.com/Fighter1125/Vue-projects/blob/master/chen-shop/src/images/show.gif)
 ## 构建项目
-### 主要文件
-        
-1. main.js 入口文件
-
-2. router.js 路由配置文件
+搭建脚手架
 
 ### App主要的组件
 
-1. App公共部分
+1. 主组件App.vue
+ 
+2. App公共部分
     - 顶部header部分
-        >使用 Mint-UI 中的Header组件
     - 底部tabbar部分
-        >使用 Mint-UI 的Tabbar组件,字体图标使用iconfont
-3. tabbar组件
+3. tabbar部分
 
     首页|会员|购物车|搜索
     :---:|:---:|:---:|:---:
     HomeContainer.vue | MemberContainer.vue | ShopcarContainer.vue | SearchContainer.vue
     
-2. 子组件
+4. 子组件
 
     评论组件|轮播组件|数字选择框(商品详情页)|数字选择框(购物车)
     :---:|:---:|:---:|:---:|
     Comment.vue|Swipe.vue|Numbox_goodsInfo.vue|Numbox_shopCar.vue
 
 
-4. 其他组件
+5. 其他组件
 
     新闻资讯块|图片分享块|商品购买|
     :---:|:---:|:---:|

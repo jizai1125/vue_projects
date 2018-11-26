@@ -140,7 +140,6 @@ var vm=new Vue({
     el: '#app',
     data: {
     },
-
     render: c=>c(app),
     router,
     store,  //挂载store管理状态对象
