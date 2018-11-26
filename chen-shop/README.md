@@ -175,10 +175,11 @@
             - 父组件 GoodsInfo.vue 向子组件 Numbox_goodsInfo.vue 传库存值设置子组件的最大可选数量
             > 注意： 因为父组件传来的库存值max是异步获取的，所以还没获取到之前max是undefined，可通过监听属性来更新
             - ####通过 Vuex 保存状态数据实现添加到购物车的功能
-             1. 在store state属性中创建一个数组shopCar保存商品信息对象，
-             2. 在store mutations属性设置添加到state中shopCar数组的方法，同时也保存到本地存储localstorage，每次进入页面时，先获取本地存储，然后赋给state里的shopCar数组
-             3. 在store getter属性中设置一个方法获取总商品数量
-             4. 购物车徽标值 通过$store.getters.***获取设置
+            > 因为商品的数据需要在多个组件之间共享，使用Vuex非常方便实现
+             1. 在store state属性中创建一个数组shopCar保存商品信息对象，商品信息对象如{id: 商品id, count: 商品数量， price: 商品单价，selected: 商品是否被选中}
+             2. 在store mutations属性设置添加到state中shopCar数组的方法addToShopCar，同时也保存到本地存储localstorage，每次进入页面时，先获取本地存储，然后赋给state里的shopCar数组
+             3. 在store getters属性中设置一个方法getCount获取总商品数量
+             4. 购物车徽标值 通过$store.getters.getCount方法获取设置
                 
             > **组件中使用Vuex**： 
             > 1. 装包：**npm i vuex -S**  
@@ -196,18 +197,38 @@
 >## Day6
    
 > #### 购物车页 ShopCarContainer.vue
+>因为所有数据保存在store中和localStorage中，所以修改store中数据的同时，也要重新设置localStorage的值
 
 1. 创建商品列表样式(使用MUI卡片视图样式)
     1. 单选框（mint-switch组件）、图片、标题、价格、数字选择框（创建 Numbox_shopCar.vue组件）、删除键    
 2. 商品数据获取
     1. 根据存在store里的所有商品id发送请求获取商品相关的数据，再渲染到页面上
     2. 商品的购买数量从store里面获取
+3. 设置、监听数字选择框Numbox_shopCar.vue的值
+    > 父组件中需要给该组件绑定商品id 和 商品的数量count
+    1. 设置初始值；在购物车组件shopcarContainer.vue中，给该组件绑定属性count向该组件传值，然后设置numbox数字选择框的初始值
+    2. 监听值的变化；通过给该组件中的input元素绑定chang事件监听数值的变化；当值变化时，修改存在store中对应商品的数量。在store的mutations中添加方法updateGoodsCount
+4. 更改选中状态（默认选中）
+    1. 通过mint-switch组件的change事件来获取选中状态
+    2. 然后根据商品id修改存在store中对应商品的选中状态，在store的mutations中添加方法updateGoodsSelected
+5. 计算选中商品的总数量和总价
+    1. 在store的getters中添加方法getGoodsCountAndAmount，遍历存在store的shopCar,计算选中状态为true的商品数量和总价
+    2. 在购物车组件shopcarContainer.vue中，调用方法getGoodsCountAndAmount获取勾选商品数量和总价
+    
+    
 ## 问题汇总
 1. 真机调试：
    - 手机和电脑处于同一局域网，可以通过连同一WiFi
    - 在项目中的package.json文件 的scripts项 'start'脚本添加 --host指令，然后将当前WiFi IP地址设置为 --host 的指令值
    - 手机输入IP地址
-
+2. 启用Apache gzip压缩，在httpd.conf中
+   - 开启模块：<br>**LoadModule deflate_module modules/mod_deflate.so**<br> 和 **LoadModule headers_module modules/mod_headers.so**
+   - 添加配置:<br> **\<IfModule mod_deflate.c><br>
+     \# 告诉 apache 对传输到浏览器的内容进行压缩<br>
+     SetOutputFilter DEFLATE<br>
+     \# 压缩等级 9<br>
+     DeflateCompressionLevel 9<br>
+     \</IfModule>**
 2. 引入mui.js时会报错，底部tabbar点击无法切换。
 Unable to preventDefault inside passive event listener due to target being treated as passive
     
