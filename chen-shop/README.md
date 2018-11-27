@@ -225,7 +225,9 @@
      \# 压缩等级 9<br>
      DeflateCompressionLevel 9<br>
      \</IfModule>**
-2. 引入mui.js时会报错，底部tabbar点击无法切换。
+3. 使用ngrok将本机映射为一个外网的Web服务器
+     注意：由于默认使用的美国的服务器进行中间转接，所以访问速度炒鸡慢，访问时可启用FQ软件，提高网页打开速度！
+4. 引入mui.js时会报错，底部tabbar点击无法切换。
 Unable to preventDefault inside passive event listener due to target being treated as passive
     
     * 解决方法：
@@ -234,7 +236,7 @@ Unable to preventDefault inside passive event listener due to target being treat
     
     >方法2：因为类名为mui-tab-item有冲突，删除此类名，自己命名一个类名mui-tab-item-chen,样式和mui-tab-item一样
 
-3. 制作图片分享顶部导航滑动效果，使用mui scroll组件，滑动时会报错，和第一个问题一样的错误；
+5. 制作图片分享顶部导航滑动效果，使用mui scroll组件，滑动时会报错，和第一个问题一样的错误；
    <br>还有初始化时，要放在mounted函数钩子里，等待元素被挂载到DOM树再初始化，否则进入该页面时,无法滑动导航栏
     * 解决方法：
      
