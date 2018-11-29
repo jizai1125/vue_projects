@@ -210,8 +210,27 @@
 5. 计算选中商品的总数量和总价
     1. 在store的getters中添加方法getGoodsCountAndAmount，遍历存在store的shopCar,计算选中状态为true的商品数量和总价
     2. 在购物车组件shopcarContainer.vue中，调用方法getGoodsCountAndAmount获取勾选商品数量和总价
+
+>## Day7
+
+>#### 搜索页 SearchContainer.vue
+
+- 接口：**https://api.apiopen.top/likePoetry**；
+- get请求，参数name，参数值为诗词中出现的字都行
+
+1. 点击搜索按钮发送get请求，
+
+2. 请求过程中显示加载样式，使用mint-ui的spinner组件
+
+3. 返回结果使用mui的卡片视图card渲染   
     
-    
+>#### 首页每日视频 VideoList.vue 
+
+- 接口：**https://api.apiopen.top/todayVideo**
+   
+1. 创建VideoList.vue 组件，设置router-link, 配置路由
+2. 跳转到该页面时，自动发送get请求获取数据
+
 ## 问题汇总
 1. 真机调试：
    - 手机和电脑处于同一局域网，可以通过连同一WiFi
@@ -236,7 +255,7 @@ Unable to preventDefault inside passive event listener due to target being treat
     
     >方法2：因为类名为mui-tab-item有冲突，删除此类名，自己命名一个类名mui-tab-item-chen,样式和mui-tab-item一样
 
-5. 制作图片分享顶部导航滑动效果，使用mui scroll组件，滑动时会报错，和第一个问题一样的错误；
+5. 制作图片分享顶部导航滑动效果，使用mui scroll组件，滑动时会报错，和上一个问题一样的错误；
    <br>还有初始化时，要放在mounted函数钩子里，等待元素被挂载到DOM树再初始化，否则进入该页面时,无法滑动导航栏
     * 解决方法：
      

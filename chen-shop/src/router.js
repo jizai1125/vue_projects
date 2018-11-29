@@ -15,6 +15,8 @@ import GoodsList from './components/goods/GoodsList.vue'
 import GoodsInfo from './components/goods/GoodsInfo.vue'
 import GoodsDesc from './components/goods/GoodsDesc.vue'
 import GoodsCmts from './components/goods/GoodsCmts.vue'
+//每日视频
+import VideoList from './components/video/VideoList.vue'
 
 var router=new VueRouter({
     routes: [//配置路由规则
@@ -31,6 +33,7 @@ var router=new VueRouter({
         {path: '/home/goodsInfo/:id', component: GoodsInfo, name: 'goodsInfo'},
         {path: '/home/goodsDesc/:id', component: GoodsDesc, name: 'goodsDesc'},
         {path: '/home/goodsCmts/:id', component: GoodsCmts, name: 'goodsCmts'},
+        {path: '/home/videoList', component: VideoList},
     ],
     linkActiveClass: 'mui-active',  //激活时类名
 });
