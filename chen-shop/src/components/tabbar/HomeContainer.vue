@@ -33,15 +33,15 @@
                     </router-link>
                 </div>
                 <div class="mui-col-xs-4 navbar-item">
-                    <router-link to="/home/newsList">
+                    <router-link to="/home/videoList">
                         <img src="../../images/menu5.png" alt="视频专区">
-                        <p>视频专区</p>
+                        <p>每日视频</p>
                     </router-link>
                 </div>
                 <div class="mui-col-xs-4 navbar-item">
                     <router-link to="/home/newsList">
                         <img src="../../images/menu6.png" alt="联系我们">
-                        <p>联系我们</p>
+                        <p>联系我</p>
                     </router-link>
                 </div>
             </div>
