@@ -2,15 +2,16 @@
     <div>
         <div class="mui-card" v-for="(item,i) in videoList" :key="i">
             <div class="mui-card-content">
-                <video ref="video" controls width="100%" :src="item.url"></video>
+                <video_controls :src="item.url"></video_controls>
+                <p class="mui-text-right">{{item.time | dateFormat}}</p>
             </div>
-                <p class="mui-text-center">{{item.time | dateFormat}}</p>
         </div>
         <mt-spinner v-show="spinnerFlag" class="spinner" :type="2" :size="50"></mt-spinner>
     </div>
 </template>
 <!--1.点击屏幕显示控制组件，过5s后隐藏控制组件，-->
 <script>
+    import video_controls from '../subcomponents/VideoControl.vue'
     import {Toast} from 'mint-ui'
     export default {
         name: "VideoList",
@@ -53,6 +54,9 @@
                     this.spinnerFlag=false;
                 })
             }
+        },
+        components: {
+            video_controls
         }
     }
 </script>
@@ -67,20 +71,10 @@
     .fade-leave-active {
         transition: all .4s ease;
     }
-    .controls {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%,-50%);
-        width: 50px;
-        height: 50px;
-        text-align: center;
-    }
-    .icon-play,
-    .icon-pause {
-        color: #e8e8e8;
-        font-size: 40px;
-        line-height: 50px;
+    .mui-card-content {
+        p {
+            margin: 0;
+        }
     }
     .spinner {
         position: absolute;
