@@ -8,7 +8,7 @@
 ### App主要的组件
 
 1. 主组件App.vue
- 
+  
 2. App公共部分
     - 顶部header部分
     - 底部tabbar部分
@@ -20,17 +20,17 @@
     
 4. 子组件
 
-    评论组件|轮播组件|数字选择框(商品详情页)|数字选择框(购物车)
-    :---:|:---:|:---:|:---:|
-    Comment.vue|Swipe.vue|Numbox_goodsInfo.vue|Numbox_shopCar.vue
+    评论组件|轮播组件|数字选择框(商品详情页)|数字选择框(购物车)|播放器组件
+    :---:|:---:|:---:|:---:|:---:|
+    Comment.vue|Swipe.vue|Numbox_goodsInfo.vue|Numbox_shopCar.vue|VideoControl.vue
 
 
 5. 其他组件
 
-    新闻资讯块|图片分享块|商品购买|
-    :---:|:---:|:---:|
-    新闻列表、新闻详情|图片列表、图片详情|商品列表、商品详情、商品介绍、商品评价|
-    NewsList.vue、NewsInfo.vue|PhotoList.vue、PhotoInfo.vue|GoodsList.vue、GoodsInfo.vue、GoodsDesc.vue、GoodsCmts.vue|
+    新闻资讯块|图片分享块|商品购买|每日视频|
+    :---:|:---:|:---:|:---:|
+    新闻列表、新闻详情|图片列表、图片详情|商品列表、商品详情、商品介绍、商品评价|视频列表|
+    NewsList.vue、NewsInfo.vue|PhotoList.vue、PhotoInfo.vue|GoodsList.vue、GoodsInfo.vue、GoodsDesc.vue、GoodsCmts.vue|VideoList.vue|
 ---
 
 >## Day02
@@ -230,6 +230,13 @@
    
 1. 创建VideoList.vue 组件，设置router-link, 配置路由
 2. 跳转到该页面时，自动发送get请求获取数据
+
+>#### 创建播放器组件 VideoControls.vue
+    
+1. 显示信息：进度条，总时长和已播放时长
+2. 默认显示播放按钮，点击播放按钮，播放视频->隐藏控件，
+3. 点击视频任何位置，显示/隐藏控件
+   >按钮区在绑定点击事件时，为了防止点击穿透，可以用事件修饰符 **.stop**
 
 ## 问题汇总
 1. 真机调试：
