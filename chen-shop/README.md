@@ -1,6 +1,7 @@
 # Vue-shop项目
 
 >## Day01
+
 ![img](https://github.com/Fighter1125/Vue-projects/blob/master/chen-shop/src/images/show.gif)
 ## 构建项目
 搭建脚手架
@@ -8,7 +9,7 @@
 ### App主要的组件
 
 1. 主组件App.vue
-  
+
 2. App公共部分
     - 顶部header部分
     - 底部tabbar部分
@@ -243,6 +244,7 @@
    - 手机和电脑处于同一局域网，可以通过连同一WiFi
    - 在项目中的package.json文件 的scripts项 'start'脚本添加 --host指令，然后将当前WiFi IP地址设置为 --host 的指令值
    - 手机输入IP地址
+
 2. 启用Apache gzip压缩，在httpd.conf中
    - 开启模块：<br>**LoadModule deflate_module modules/mod_deflate.so**<br> 和 **LoadModule headers_module modules/mod_headers.so**
    - 添加配置:<br> **\<IfModule mod_deflate.c><br>
@@ -251,8 +253,10 @@
      \# 压缩等级 9<br>
      DeflateCompressionLevel 9<br>
      \</IfModule>**
+
 3. 使用ngrok将本机映射为一个外网的Web服务器
      注意：由于默认使用的美国的服务器进行中间转接，所以访问速度炒鸡慢，访问时可启用FQ软件，提高网页打开速度！
+
 4. 引入mui.js时会报错，底部tabbar点击无法切换。
 Unable to preventDefault inside passive event listener due to target being treated as passive
     
