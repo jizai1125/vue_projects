@@ -245,7 +245,7 @@
    - 在项目中的package.json文件 的scripts项 'start'脚本添加 --host指令，然后将当前WiFi IP地址设置为 --host 的指令值
    - 手机输入IP地址
 
-2. 启用Apache gzip压缩，在httpd.conf中
+2. 部署到Apache上，启用Apache gzip压缩，在httpd.conf中
    - 开启模块：<br>**LoadModule deflate_module modules/mod_deflate.so**<br> 和 **LoadModule headers_module modules/mod_headers.so**
    - 添加配置:<br> **\<IfModule mod_deflate.c><br>
      \# 告诉 apache 对传输到浏览器的内容进行压缩<br>
@@ -253,6 +253,7 @@
      \# 压缩等级 9<br>
      DeflateCompressionLevel 9<br>
      \</IfModule>**
+   - 当成功时，在响应头中存在 Content-Encoding: gzip
 
 3. 使用ngrok将本机映射为一个外网的Web服务器
      注意：由于默认使用的美国的服务器进行中间转接，所以访问速度炒鸡慢，访问时可启用FQ软件，提高网页打开速度！
