@@ -48,7 +48,6 @@
                                 url: item.data.content.data.playUrl
                             })
                         }
-
                     })
                     this.videoList=tempArr;
                     this.spinnerFlag=false;
