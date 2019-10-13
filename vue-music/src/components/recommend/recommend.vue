@@ -1,38 +1,51 @@
 <template>
-  <div class="recommend" ref="recommend">
-    <div class="recommend-content">
-      <div class="slider-wrapper">
-        <slider v-if="recommends.length">
-          <div v-for="item in recommends" :key=item.id>
-            <a :href="item.linkUrl">
-              <img :src="item.picUrl" alt="">
-            </a>
-          </div>
-        </slider>
+  <div class="recommend">
+    <Scroll class="recommend-content" :data="recomPlayList">
+      <div>
+        <div class="slider-wrapper">
+          <slider v-if="recommends.length">
+            <div v-for="item in recommends" :key="item.id">
+              <a :href="item.linkUrl">
+                <img :src="item.picUrl" alt />
+              </a>
+            </div>
+          </slider>
+        </div>
+        <div class="recommend-list">
+          <h1 class="list-title">热门歌单推荐</h1>
+          <ul>
+            <li class="item" v-for="item in recomPlayList" :key="item.content_id">
+              <img :src="item.cover" alt class="icon" />
+              <div class="text">
+                <h2 class="name">{{ item.title }}</h2>
+                <p class="desc">播放量：{{ _getPlayNum(item.listen_num) }}</p>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
-      <div class="recommend-list">
-        <div class="list-title">热门歌单推荐</div>
-      </div>
-    </div>
+    </Scroll>
     <router-view></router-view>
   </div>
 </template>
 <script>
 import { getRecommend, getDiscList } from "api/recommend";
 import { ERR_OK } from "api/config";
+import Scroll from "base/scroll/scroll";
 import Slider from "base/slider/slider";
 export default {
-  components: { Slider },
+  components: { Slider, Scroll },
   data() {
     return {
       recommends: [],
-      discList: [],
+      recomPlayList: []
     };
   },
   created() {
     this._getRecommend();
     this._getDiscList();
   },
+  computed: {},
   methods: {
     // 获取推荐列表
     _getRecommend() {
@@ -49,14 +62,17 @@ export default {
     // 获取歌单列表
     _getDiscList() {
       getDiscList().then(res => {
-         if (res.code !== ERR_OK) {
-          console.log(res.code);
+        if (res.code !== ERR_OK) {
+          console.log("<<<ERR>>>", res.code);
           return;
         }
-        let result = res.data;
-        console.log(res);
-        // this.recommends = result.radioList;
-      })
+        console.dir(res.recomPlaylist.data.v_hot);
+        let result = res.recomPlaylist.data.v_hot;
+        this.recomPlayList = result;
+      });
+    },
+    _getPlayNum(num) {
+      return `${Number(num / 10000).toFixed(2)}万`;
     }
   }
 };

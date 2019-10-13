@@ -3,8 +3,12 @@ import { commonParams } from "./config";
 
 export function getRecommend() {
   return axios
-    .get("/api/getRecommendList", {
-      params: commonParams
+    .get("/api/sliderList", {
+      params: {
+        ...commonParams,
+        platform: "h5",
+        needNewCode: 1
+      }
     })
     .then(
       res => Promise.resolve(res.data),
@@ -15,16 +19,12 @@ export function getRecommend() {
 }
 export function getDiscList() {
   return axios
-    .get("/api/getSong", {
+    .get("/api/recomPlayList", {
       params: {
+        ...commonParams,
         "-": "recom6354329590108696",
-        g_tk: 5381,
         loginUin: 0,
         hostUin: 0,
-        format: "json",
-        inCharset: "utf8",
-        outCharset: "utf-8",
-        notice: 0,
         platform: "yqq.json",
         needNewCode: 0,
         data: {
