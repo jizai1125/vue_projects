@@ -1,12 +1,12 @@
 <template>
   <div class="recommend">
-    <Scroll class="recommend-content" :data="recomPlayList">
+    <Scroll ref="scroll" class="recommend-content" :data="recomPlayList">
       <div>
         <div class="slider-wrapper">
           <slider v-if="recommends.length">
             <div v-for="item in recommends" :key="item.id">
               <a :href="item.linkUrl">
-                <img :src="item.picUrl" alt />
+                <img @load="loadImg" :src="item.picUrl" alt />
               </a>
             </div>
           </slider>
@@ -15,7 +15,7 @@
           <h1 class="list-title">热门歌单推荐</h1>
           <ul>
             <li class="item" v-for="item in recomPlayList" :key="item.content_id">
-              <img :src="item.cover" alt class="icon" />
+              <img v-lazy="item.cover" alt class="icon" />
               <div class="text">
                 <h2 class="name">{{ item.title }}</h2>
                 <p class="desc">播放量：{{ _getPlayNum(item.listen_num) }}</p>
@@ -37,6 +37,7 @@ export default {
   components: { Slider, Scroll },
   data() {
     return {
+      isImgLoaded: false,
       recommends: [],
       recomPlayList: []
     };
@@ -73,6 +74,11 @@ export default {
     },
     _getPlayNum(num) {
       return `${Number(num / 10000).toFixed(2)}万`;
+    },
+    loadImg() {
+      if (this.isImgLoaded) return;
+      this.isImgLoaded = true;
+      this.$refs.scroll.refresh();
     }
   }
 };
