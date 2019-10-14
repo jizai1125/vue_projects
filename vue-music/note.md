@@ -3,10 +3,15 @@
 
 ### 2. 进度
 
-  - 2019.10.13
-  > 4.12
 
-### 3. 问题
+### 3. 组件
+
+  推荐页 | 歌手页 | 排行页 | 搜索页
+  |:--:|:--:|:--:|:--:|
+  recommend.vue | fds | fds| fds
+  slider.vue、scroll.vue | fd | fd | fds
+
+### 4. 问题
 
 >`Better-Scroll` 插件 使用上下滑动功能时，无法滑动
 ```javascript

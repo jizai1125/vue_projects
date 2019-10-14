@@ -13,6 +13,7 @@ export function getRecommend() {
     .then(
       res => Promise.resolve(res.data),
       err => {
+        console.log("<<<getRecommend ERR>>>");
         console.log(err);
       }
     );
@@ -40,6 +41,7 @@ export function getDiscList() {
     .then(
       res => Promise.resolve(res.data),
       err => {
+        console.log("<<<getDiscList ERR>>>");
         console.log(err);
       }
     );

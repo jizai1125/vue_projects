@@ -23,6 +23,9 @@
             </li>
           </ul>
         </div>
+        <div class="loading-container">
+          <Loading v-show="!recomPlayList.length"></Loading>
+        </div>
       </div>
     </Scroll>
     <router-view></router-view>
@@ -33,8 +36,9 @@ import { getRecommend, getDiscList } from "api/recommend";
 import { ERR_OK } from "api/config";
 import Scroll from "base/scroll/scroll";
 import Slider from "base/slider/slider";
+import Loading from "base/loading/loading";
 export default {
-  components: { Slider, Scroll },
+  components: { Slider, Scroll, Loading },
   data() {
     return {
       isImgLoaded: false,

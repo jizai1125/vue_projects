@@ -43,6 +43,19 @@ const devServer = {
           .catch(err => {
             console.log(err);
           });
+      })
+      .get("/api/getSingerList", (req, res) => {
+        let url = "https://u.y.qq.com/cgi-bin/musicu.fcg";
+        axios
+          .get(url, {
+            params: req.query
+          })
+          .then(response => {
+            res.json(response.data);
+          })
+          .catch(err => {
+            console.log(err);
+          });
       });
   }
 }
