@@ -1,54 +1,59 @@
 <template>
   <div class="singer-Wrapper">
-    <list-view></list-view>
-    <!-- <ul class="singer-list">
-      <li class="singer-item" v-for="item in hotSingers" :key="item.singer_id">
-        <img :src="item.singer_pic" alt />
-        <span>{{ item.singer_name }}</span>
-      </li>
-    </ul>
-    <ul class="tags">
-      <li class="tags-item" v-for="item in tags['index']" :key="item.name">{{item.name}}</li>
-    </ul> -->
+    <list-view :data="singerList" :tags="tags" />
   </div>
 </template>
 <script>
-import { getSingerList } from "api/singer";
-import { ERR_OK } from "api/config";
-import ListView from "base/listview/listview";
+import { getSingerList } from 'api/singer'
+import { ERR_OK } from 'api/config'
+import ListView from 'base/listview/listview'
 export default {
   components: { ListView },
   data() {
     return {
-      hotSingers: [],
+      singerList: [],
       tags: []
-    };
+    }
   },
   created() {
-    this._getSingerList();
+    this._getSingerList({ index: -100 })
   },
   methods: {
-    _getSingerList() {
-      getSingerList().then(res => {
-        console.log(res);
+    async _getSingerList(params) {
+      await getSingerList(params).then(res => {
         if (res.code !== ERR_OK) {
-          console.log("get singerList ERR CODE", res.code);
-          return;
+          console.log('get singerList ERR CODE', res.code)
+          return
         }
-        let result = res.singerList.data;
-        this.hotSingers = result.singerlist;
-        this.tags = result.tags;
-      });
+        const result = res.singerList.data
+        this.tags = result.tags.index
+      })
+      const promises = this.tags.map(item => {
+        return getSingerList({ index: item.id })
+      })
+      console.log(promises)
+      Promise.all(promises).then(res => {
+        this.singerList = res.map((item, index) => {
+          return ({
+            tag: this.tags[index].name,
+            data: item.singerList.data.singerlist
+          })
+        })
+        console.log(this.singerList)
+      }).catch(err => {
+        console.log(err)
+      })
     }
   }
-};
+}
 </script>
 <style lang="stylus" scoped>
-.singer-Wrapper 
+.singer-Wrapper
   // position absolute
   // top 88px
   // bottom 0
   width 100%
+  height 100%
   .singer-list
     border: 1px solid
   .tags

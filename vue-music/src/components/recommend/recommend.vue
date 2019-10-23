@@ -6,7 +6,7 @@
           <slider v-if="recommends.length">
             <div v-for="item in recommends" :key="item.id">
               <a :href="item.linkUrl">
-                <img @load="loadImg" :src="item.picUrl" alt />
+                <img :src="item.picUrl" alt @load="loadImg">
               </a>
             </div>
           </slider>
@@ -14,8 +14,8 @@
         <div class="recommend-list">
           <h1 class="list-title">热门歌单推荐</h1>
           <ul>
-            <li class="item" v-for="item in recomPlayList" :key="item.content_id">
-              <img v-lazy="item.cover" alt class="icon" />
+            <li v-for="item in recomPlayList" :key="item.content_id" class="item">
+              <img v-lazy="item.cover" alt class="icon">
               <div class="text">
                 <h2 class="name">{{ item.title }}</h2>
                 <p class="desc">播放量：{{ _getPlayNum(item.listen_num) }}</p>
@@ -24,19 +24,19 @@
           </ul>
         </div>
         <div class="loading-container">
-          <Loading v-show="!recomPlayList.length"></Loading>
+          <Loading v-show="!recomPlayList.length" />
         </div>
       </div>
     </Scroll>
-    <router-view></router-view>
+    <router-view />
   </div>
 </template>
 <script>
-import { getRecommend, getDiscList } from "api/recommend";
-import { ERR_OK } from "api/config";
-import Scroll from "base/scroll/scroll";
-import Slider from "base/slider/slider";
-import Loading from "base/loading/loading";
+import { getRecommend, getDiscList } from 'api/recommend'
+import { ERR_OK } from 'api/config'
+import Scroll from 'base/scroll/scroll'
+import Slider from 'base/slider/slider'
+import Loading from 'base/loading/loading'
 export default {
   components: { Slider, Scroll, Loading },
   data() {
@@ -44,48 +44,48 @@ export default {
       isImgLoaded: false,
       recommends: [],
       recomPlayList: []
-    };
-  },
-  created() {
-    this._getRecommend();
-    this._getDiscList();
+    }
   },
   computed: {},
+  created() {
+    this._getRecommend()
+    this._getDiscList()
+  },
   methods: {
     // 获取推荐列表
     _getRecommend() {
       getRecommend().then(res => {
         if (res.code !== ERR_OK) {
-          console.log(res.code);
-          return;
+          console.log(res.code)
+          return
         }
-        let result = res.data;
-        console.log(result);
-        this.recommends = result.slider;
-      });
+        const result = res.data
+        console.log(result)
+        this.recommends = result.slider
+      })
     },
     // 获取歌单列表
     _getDiscList() {
       getDiscList().then(res => {
         if (res.code !== ERR_OK) {
-          console.log("<<<ERR>>>", res.code);
-          return;
+          console.log('<<<ERR>>>', res.code)
+          return
         }
-        console.dir(res.recomPlaylist.data.v_hot);
-        let result = res.recomPlaylist.data.v_hot;
-        this.recomPlayList = result;
-      });
+        console.dir(res.recomPlaylist.data.v_hot)
+        const result = res.recomPlaylist.data.v_hot
+        this.recomPlayList = result
+      })
     },
     _getPlayNum(num) {
-      return `${Number(num / 10000).toFixed(2)}万`;
+      return `${Number(num / 10000).toFixed(2)}万`
     },
     loadImg() {
-      if (this.isImgLoaded) return;
-      this.isImgLoaded = true;
-      this.$refs.scroll.refresh();
+      if (this.isImgLoaded) return
+      this.isImgLoaded = true
+      this.$refs.scroll.refresh()
     }
   }
-};
+}
 </script>
 <style lang="stylus" scoped>
 @import '~common/stylus/variable';
