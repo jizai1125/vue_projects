@@ -1,34 +1,44 @@
-import Vue from "vue";
-import Router from "vue-router";
+import Vue from 'vue'
+import Router from 'vue-router'
+const routerPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+  return routerPush.call(this, location).catch(error => error)
+}
+import Recommend from '@/components/recommend/recommend'
+import Singer from '@/components/singer/singer'
+import Rank from '@/components/rank/rank'
+import Search from '@/components/search/search'
+import SingerInfo from '@/components/singer-info/singer-info'
 
-import Recommend from "@/components/recommend/recommend";
-import Singer from "@/components/singer/singer";
-import Rank from "@/components/rank/rank";
-import Search from "@/components/search/search";
-
-Vue.use(Router);
+Vue.use(Router)
 
 export default new Router({
-  mode: "history",
+  mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
-      path: "/",
-      redirect: "/recommend"
+      path: '/',
+      redirect: '/recommend'
     },
     {
-      path: "/rank",
+      path: '/rank',
       component: Rank
     }, {
-      path: "/search",
+      path: '/search',
       component: Search
     }, {
-      path: "/recommend",
+      path: '/recommend',
       component: Recommend
     }, {
-      path: "/singer",
-      component: Singer
-    },
+      path: '/singer',
+      component: Singer,
+      children: [
+        {
+          path: ':id',
+          component: SingerInfo
+        }
+      ]
+    }
     // {
     //   path: "/about",
     //   name: "about",
@@ -39,4 +49,4 @@ export default new Router({
     //     import(/* webpackChunkName: "about" */ "./views/About.vue")
     // }
   ]
-});
+})

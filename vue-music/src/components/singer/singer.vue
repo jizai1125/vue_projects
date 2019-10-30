@@ -1,12 +1,16 @@
 <template>
   <div class="singer-Wrapper">
-    <list-view :data="singerList" :tags="tags" />
+    <list-view :data="singerList" :tags="tags" @select="selectedSinger" />
+    <transition name="slide">
+      <router-view />
+    </transition>
   </div>
 </template>
 <script>
 import { getSingerList } from 'api/singer'
 import { ERR_OK } from 'api/config'
 import ListView from 'base/listview/listview'
+import { mapMutations } from 'vuex'
 export default {
   components: { ListView },
   data() {
@@ -19,6 +23,13 @@ export default {
     this._getSingerList({ index: -100 })
   },
   methods: {
+    selectedSinger(singer) {
+      console.log(singer)
+      this.$router.push({
+        path: `/singer/${singer.singer_mid}`
+      })
+      this.setSinger(singer)
+    },
     async _getSingerList(params) {
       await getSingerList(params).then(res => {
         if (res.code !== ERR_OK) {
@@ -31,7 +42,6 @@ export default {
       const promises = this.tags.map(item => {
         return getSingerList({ index: item.id })
       })
-      console.log(promises)
       Promise.all(promises).then(res => {
         this.singerList = res.map((item, index) => {
           return ({
@@ -43,24 +53,25 @@ export default {
       }).catch(err => {
         console.log(err)
       })
-    }
+    },
+    ...mapMutations({
+      setSinger: 'SET_SINGER' // this.setSinger()映射为this.$store.commit('SET_SINGER')
+    })
   }
 }
 </script>
 <style lang="stylus" scoped>
+.slide-enter-active, .slide-leave-active {
+  transition: all .3s;
+}
+.slide-enter, .slide-leave-to {
+  transform: translate3d(100%, 0, 0);
+}
 .singer-Wrapper
-  // position absolute
+  // position: absolute
   // top 88px
   // bottom 0
   width 100%
   height 100%
-  .singer-list
-    border: 1px solid
-  .tags
-    position: absolute;
-    right: 0;
-    top: 0;
-    border: 1px solid red;
-    .tags-item
-      // padding: 5px;
+
 </style>

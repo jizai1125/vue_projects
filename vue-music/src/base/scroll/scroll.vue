@@ -18,10 +18,16 @@ export default {
     data: {
       type: Array,
       default: null
+    },
+    listenScroll: {
+      type: Boolean,
+      defalut: false
     }
   },
   data() {
-    return {}
+    return {
+      scrollY: 0
+    }
   },
   watch: {
     data() {
@@ -43,6 +49,11 @@ export default {
         click: this.click,
         scrollY: true
       })
+      if (this.listenScroll) {
+        this.scroll.on('scroll', pos => {
+          this.$emit('scroll', pos)
+        })
+      }
     },
     enable() {
       this.scroll && this.scroll.enable()
@@ -52,6 +63,12 @@ export default {
     },
     refresh() {
       this.scroll && this.scroll.refresh()
+    },
+    scrollTo() {
+      this.scroll && this.scroll.scrollTo(...arguments)
+    },
+    scrollToElement() {
+      this.scroll && this.scroll.scrollToElement(...arguments)
     }
   }
 }
