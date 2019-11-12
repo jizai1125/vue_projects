@@ -13,12 +13,17 @@ import { getSongKey } from 'api/singer'
 import { ERR_OK } from 'api/config'
 import { mapGetters } from 'vuex'
 import { createSong } from 'common/js/song'
+
 import MusicList from 'components/music-list/music-list'
+
 export default {
-  components: { MusicList },
+  components: {
+    MusicList
+  },
   data() {
     return {
-      songList: []
+      songList: [],
+      isShowPlayer: false
     }
   },
   computed: {
@@ -27,19 +32,20 @@ export default {
     ])
   },
   created() {
-    console.log(this.singer)
+    if (!this.singer) return
     this._getSongList(this.singer.singer_mid)
   },
   methods: {
     _getSongList(singerId) {
       if (!singerId) {
-        singerId = this.$route.params.id
+        this.$router.push('/singer')
+        return
       }
       getSingerSong({
         singerMid: singerId
       }).then(res => {
         if (res.code !== ERR_OK) {
-          console.log('<<<GET SINGER SONG ERR>>>', res)
+          console.error('<<<GET SINGER SONG ERR>>>', res)
           return
         }
         console.log(res.singerSongList.data.songList)
@@ -54,13 +60,16 @@ export default {
         const item = list[i].songInfo
         const response = await getSongKey(item.mid)
         if (response.code !== ERR_OK) {
-          console.log('<<<GET SONG PURL ERR>>>', response)
+          console.error('<<<GET SONG PURL ERR>>>', response)
           return
         }
         const purl = response.req_0.data.midurlinfo[0].purl
+        console.log(purl)
         result.push(createSong(item, purl))
       }
       return result
+      // === 需完善歌曲url请求的逻辑 ===
+      // return list.map(item => createSong(item.songInfo, ''))
     }
   }
 }

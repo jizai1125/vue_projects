@@ -6,7 +6,7 @@
     <h1 class="title" v-html="title" />
     <div ref="bgImage" class="bg-image" :style="bgStyle">
       <div v-show="songList.length > 0" ref="playBtn" class="play-wrapper">
-        <div class="play">
+        <div class="play" @click="selectRandomPlay">
           <i class="icon-play" />
           <span class="text">随机播放全部</span>
         </div>
@@ -24,7 +24,7 @@
       @scroll="scroll"
     >
       <div class="song-list-wrapper">
-        <song-list :songs="songList" />
+        <song-list :songs="songList" @select="selectedItem" />
       </div>
       <div class="loading-container">
         <Loading v-show="!songList.length" />
@@ -37,6 +37,8 @@
 import Scroll from 'base/scroll/scroll'
 import SongList from 'base/song-list/song-list'
 import Loading from 'base/loading/loading'
+
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   components: { Scroll, SongList, Loading },
@@ -115,7 +117,22 @@ export default {
     },
     back() {
       this.$router.back()
-    }
+    },
+    selectRandomPlay() {
+      this.randomPlay({
+        list: this.songList
+      })
+    },
+    selectedItem(item, index) {
+      this.selectPlay({
+        list: this.songList,
+        index
+      })
+    },
+    ...mapActions([
+      'selectPlay',
+      'randomPlay'
+    ])
   }
 }
 </script>
@@ -202,7 +219,7 @@ export default {
       width: 100%
       background: $color-background
       .song-list-wrapper
-        padding: 20px 30px
+        padding: 20px 30px 60px 30px
       .loading-container
         position: absolute
         width: 100%

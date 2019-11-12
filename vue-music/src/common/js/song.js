@@ -1,3 +1,6 @@
+import { getLyric } from 'api/song'
+import { ERR_OK } from 'api/config'
+import { Base64 } from 'js-base64'
 export default class Song {
   constructor({ id, mid, singer, name, album, duration, image, url }) {
     this.id = id
@@ -8,6 +11,21 @@ export default class Song {
     this.duration = duration
     this.image = image
     this.url = url
+  }
+  getLyric() {
+    if (this.lyric) {
+      return Promise.resolve(this.lyric)
+    }
+    return new Promise((resolve, reject) => {
+      getLyric(this.mid).then(res => {
+        if (res.code !== ERR_OK) {
+          reject(res)
+        } else {
+          this.lyric = Base64.decode(res.lyric)
+          resolve(this.lyric)
+        }
+      })
+    })
   }
 }
 
@@ -26,9 +44,7 @@ export function createSong(musicData, purl) {
     url: `http://ws.stream.qqmusic.qq.com/${purl}`
   })
 }
-// "FFB1BA328F4F1BE4013AD80AECEDADA50BE4C3911F5944345B86130A94562BB5128862870BDCCB9FED02DA946851525E6E383A921754A557"
-// "C400001qvvgF38HVc4.m4a?guid=973270494&vkey=FFB1BA328F4F1BE4013AD80AECEDADA50BE4C3911F5944345B86130A94562BB5128862870BDCCB9FED02DA946851525E6E383A921754A557&uin=0&fromtag=66"
-
+// name / name
 function filterSinger(singer) {
   if (!singer) return ''
   return singer.map(item => item.name).join('/')

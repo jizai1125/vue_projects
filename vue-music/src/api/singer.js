@@ -45,7 +45,7 @@ export function getSingerList(params) {
 
 export function getSongKey(mid) {
   return axios
-    .get('/api/getSingerList', {
+    .get('/api/getSingerSong', {
       params: {
         ...{
           ...commonParams,
@@ -105,7 +105,7 @@ export function getSongKey(mid) {
 export function getSingerSong(params) {
   const { order = 1, singerMid, begin = 0, num = 10 } = params
   return axios
-    .get('/api/getSingerList', {
+    .get('/api/getSingerSong', {
       params: {
         ...commonParams,
         ...singerParams,
