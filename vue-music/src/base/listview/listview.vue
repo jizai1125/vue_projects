@@ -32,7 +32,7 @@
       </li>
     </ul>
     <!-- 固定标题 -->
-    <h1 v-show="fixedTitle" class="fixed-title">
+    <h1 v-show="fixedTitle" ref="fixedTitle" class="fixed-title">
       {{ fixedTitle }}
     </h1>
     <!-- loading -->
@@ -46,6 +46,7 @@ import Scroll from 'base/scroll/scroll'
 import Loading from 'base/loading/loading'
 
 const TAG_ITEM_HEIGHT = 18
+const FIXED_TITLE_HEIGHT = 30
 export default {
   components: { Scroll, Loading },
   props: {
@@ -77,6 +78,7 @@ export default {
       }, 20)
     },
     scrollY(newValue) {
+      // console.log(newValue)
       const newY = Math.abs(newValue)
       // 判断在哪个区间
       // const listHeight = this.listHeight
@@ -90,6 +92,10 @@ export default {
       //     return
       //   }
       // }
+      const diffY = this.listHeight[this.currentIndex + 1] - newY
+      const top = (diffY >= 0 && diffY <= FIXED_TITLE_HEIGHT) ? FIXED_TITLE_HEIGHT - diffY : 0
+      this.$refs.fixedTitle.style.transform = `translate3d(0, -${top}px, 0)`
+
       const index = this.listHeight.findIndex(item => item > newY)
       if (index < 0) return
       this.currentIndex = index - 1
@@ -126,6 +132,9 @@ export default {
       this.currentIndex = index
       this._scrollTo(index)
     },
+    refresh() {
+      this.$refs.listView.refresh()
+    },
     scroll(pos) {
       this.scrollY = pos.y
     },
@@ -152,7 +161,7 @@ export default {
 .listView {
   position: absolute;
   width: 100%;
-  height: calc(100% - 84px);
+  height: 100%;
   overflow: hidden;
   background: $color-background;
 
@@ -191,6 +200,7 @@ export default {
     position: absolute;
     top: 50%;
     right: 0;
+    z-index: 99;
     transform: translateY(-50%);
     border-radius: 20px;
     padding: 20px 0

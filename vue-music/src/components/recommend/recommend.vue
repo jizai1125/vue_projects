@@ -1,12 +1,13 @@
+<!-- 推荐页 -->
 <template>
-  <div class="recommend">
+  <div ref="recommend" class="recommend">
     <Scroll ref="scroll" class="recommend-content" :data="recomPlayList">
       <div>
         <div class="slider-wrapper">
           <slider v-if="recommends.length">
             <div v-for="item in recommends" :key="item.id">
               <a :href="item.linkUrl">
-                <img :src="item.picUrl" alt @load="loadImg">
+                <img :src="item.picUrl" @load="loadImg">
               </a>
             </div>
           </slider>
@@ -14,7 +15,7 @@
         <div class="recommend-list">
           <h1 class="list-title">热门歌单推荐</h1>
           <ul>
-            <li v-for="item in recomPlayList" :key="item.content_id" class="item">
+            <li v-for="item in recomPlayList" :key="item.content_id" class="item" @click="selectDisc(item)">
               <img v-lazy="item.cover" alt class="icon">
               <div class="text">
                 <h2 class="name">{{ item.title }}</h2>
@@ -32,13 +33,16 @@
   </div>
 </template>
 <script>
-import { getRecommend, getDiscList } from 'api/recommend'
+import { getRecommend, getDiscList, getDiscInfo } from 'api/recommend'
 import { ERR_OK } from 'api/config'
 import Scroll from 'base/scroll/scroll'
 import Slider from 'base/slider/slider'
 import Loading from 'base/loading/loading'
+import { playlistMixin } from 'common/js/mixin'
+
 export default {
   components: { Slider, Scroll, Loading },
+  mixins: [playlistMixin],
   data() {
     return {
       isImgLoaded: false,
@@ -52,6 +56,11 @@ export default {
     this._getDiscList()
   },
   methods: {
+    selectDisc(disc) {
+      getDiscInfo(disc.content_id).then(res => {
+        console.log(res)
+      })
+    },
     // 获取推荐列表
     _getRecommend() {
       getRecommend().then(res => {
@@ -75,6 +84,11 @@ export default {
         const result = res.recomPlaylist.data.v_hot
         this.recomPlayList = result
       })
+    },
+    // 处理列表底部被播放器遮盖
+    handlePlayList(playList) {
+      this.$refs.recommend.style.bottom = playList.length > 0 ? '60px' : 0
+      this.$refs.scroll.refresh()
     },
     _getPlayNum(num) {
       return `${Number(num / 10000).toFixed(2)}万`

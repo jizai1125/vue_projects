@@ -1,30 +1,37 @@
 <template>
-  <div class="singer-Wrapper">
-    <list-view :data="singerList" :tags="tags" @select="selectedSinger" />
+  <div ref="singer" class="singer-Wrapper">
+    <list-view ref="singerList" :data="singerList" :tags="tags" @select="selectedSinger" />
     <transition name="slide">
       <router-view />
     </transition>
   </div>
 </template>
 <script>
+import { playlistMixin } from 'common/js/mixin'
 import { getSingerList } from 'api/singer'
 import { ERR_OK } from 'api/config'
 import ListView from 'base/listview/listview'
 import { mapMutations } from 'vuex'
 export default {
   components: { ListView },
+  mixins: [playlistMixin],
   data() {
     return {
       singerList: [],
       tags: []
     }
   },
+  computed: {
+  },
   created() {
     this._getSingerList({ index: -100 })
   },
   methods: {
+    handlePlayList(playList) {
+      this.$refs.singer.style.bottom = playList.length > 0 ? '60px' : 0
+      this.$refs.singerList.refresh()
+    },
     selectedSinger(singer) {
-      console.log(singer)
       this.$router.push({
         path: `/singer/${singer.singer_mid}`
       })
@@ -49,7 +56,7 @@ export default {
             data: item.singerList.data.singerlist
           })
         })
-        console.log(this.singerList)
+        // console.log(this.singerList)
       }).catch(err => {
         console.log(err)
       })
@@ -68,10 +75,9 @@ export default {
   transform: translate3d(100%, 0, 0);
 }
 .singer-Wrapper
-  // position: absolute
-  // top 88px
-  // bottom 0
+  position: absolute
+  top 88px
+  bottom 0
   width 100%
-  height 100%
-
+  // height calc(100% - 84px)
 </style>

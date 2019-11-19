@@ -4,6 +4,7 @@
       <i class="icon-back" />
     </div>
     <h1 class="title" v-html="title" />
+    <!-- 背景图 -->
     <div ref="bgImage" class="bg-image" :style="bgStyle">
       <div v-show="songList.length > 0" ref="playBtn" class="play-wrapper">
         <div class="play" @click="selectRandomPlay">
@@ -34,14 +35,16 @@
 </template>
 
 <script>
+import { playlistMixin } from 'common/js/mixin'
 import Scroll from 'base/scroll/scroll'
 import SongList from 'base/song-list/song-list'
 import Loading from 'base/loading/loading'
 
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   components: { Scroll, SongList, Loading },
+  mixins: [playlistMixin],
   props: {
     bgImage: {
       type: String,
@@ -112,6 +115,11 @@ export default {
     this.$refs.list.$el.style.top = `${this.bgImageHeight}px`
   },
   methods: {
+    // 处理列表底部被播放器遮盖
+    handlePlayList(playList) {
+      this.$refs.list.$el.style.bottom = playList.length > 0 ? '60px' : 0
+      this.$refs.list.refresh()
+    },
     scroll(pos) {
       this.scrollY = pos.y
     },
@@ -219,7 +227,7 @@ export default {
       width: 100%
       background: $color-background
       .song-list-wrapper
-        padding: 20px 30px 60px 30px
+        padding: 20px 30px
       .loading-container
         position: absolute
         width: 100%

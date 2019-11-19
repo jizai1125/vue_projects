@@ -1,6 +1,9 @@
 import axios from 'axios'
 import { commonParams } from './config'
 
+/**
+ * 轮播推荐图
+ */
 export function getRecommend() {
   return axios
     .get('/api/sliderList', {
@@ -18,6 +21,10 @@ export function getRecommend() {
       }
     )
 }
+
+/**
+ * 歌单列表
+ */
 export function getDiscList() {
   return axios
     .get('/api/recomPlayList', {
@@ -42,6 +49,37 @@ export function getDiscList() {
       res => Promise.resolve(res.data),
       err => {
         console.log('<<<getDiscList ERR>>>')
+        console.log(err)
+      }
+    )
+}
+
+/**
+ * 歌单详情
+ */
+export function getDiscInfo(disc) {
+  const { content_id } = disc
+  return axios
+    .get('api/discInfo', {
+      ...commonParams,
+      params: {
+        type: 1,
+        json: 1,
+        utf8: 1,
+        onlysong: 0,
+        new_format: 1,
+        disstid: content_id,
+        loginUin: 1414589221,
+        hostUin: 0,
+        inCharset: 'utf8',
+        platform: 'yqq.json',
+        needNewCode: 0
+      }
+    })
+    .then(
+      res => Promise.resolve(res.data),
+      err => {
+        console.log('<<<getDiscInfo ERR>>>')
         console.log(err)
       }
     )

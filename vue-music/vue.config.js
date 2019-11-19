@@ -47,6 +47,23 @@ const devServer = {
             console.error(err)
           })
       })
+      // 歌单详情
+      .get('/api/discInfo', (req, res) => {
+        const url = 'https://c.y.qq.com/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg'
+        axios
+          .get(url, {
+            headers: {
+              referer: `https://y.qq.com/n/yqq/playlist/${req.query.disstid}.html`
+            },
+            params: req.query
+          })
+          .then(response => {
+            res.json(response.data)
+          })
+          .catch(err => {
+            console.error(err)
+          })
+      })
       // 歌手列表
       .get('/api/getSingerList', (req, res) => {
         const url = 'https://u.y.qq.com/cgi-bin/musicu.fcg'
@@ -81,10 +98,6 @@ const devServer = {
         axios.get(url, {
           headers: {
             referer: 'https://y.qq.com/portal/player.html'
-            // host: 'y.qq.com',
-            // origin: 'https://y.qq.com',
-            // 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3800.0 Safari/537.36 Edg/76.0.172.0'
-            // Accept: 'application/json, text/javascript, */*; q=0.01'
           },
           params: req.query
         }).then(response => {

@@ -48,7 +48,6 @@ export default {
           console.error('<<<GET SINGER SONG ERR>>>', res)
           return
         }
-        console.log(res.singerSongList.data.songList)
         this._normalizeSong(res.singerSongList.data.songList).then(res => {
           this.songList = res
         })
@@ -64,7 +63,7 @@ export default {
           return
         }
         const purl = response.req_0.data.midurlinfo[0].purl
-        console.log(purl)
+        // console.log(purl)
         result.push(createSong(item, purl))
       }
       return result
