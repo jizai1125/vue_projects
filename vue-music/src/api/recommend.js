@@ -57,12 +57,11 @@ export function getDiscList() {
 /**
  * 歌单详情
  */
-export function getDiscInfo(disc) {
-  const { content_id } = disc
+export function getDiscInfo(content_id) {
   return axios
-    .get('api/discInfo', {
-      ...commonParams,
+    .get('/api/discInfo', {
       params: {
+        ...commonParams,
         type: 1,
         json: 1,
         utf8: 1,

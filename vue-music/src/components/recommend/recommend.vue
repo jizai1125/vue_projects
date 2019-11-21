@@ -29,16 +29,19 @@
         </div>
       </div>
     </Scroll>
-    <router-view />
+    <transition name="slide">
+      <router-view />
+    </transition>
   </div>
 </template>
 <script>
-import { getRecommend, getDiscList, getDiscInfo } from 'api/recommend'
+import { getRecommend, getDiscList } from 'api/recommend'
 import { ERR_OK } from 'api/config'
 import Scroll from 'base/scroll/scroll'
 import Slider from 'base/slider/slider'
 import Loading from 'base/loading/loading'
 import { playlistMixin } from 'common/js/mixin'
+import { mapMutations } from 'vuex'
 
 export default {
   components: { Slider, Scroll, Loading },
@@ -56,10 +59,13 @@ export default {
     this._getDiscList()
   },
   methods: {
+    // 获取当前歌单详情
     selectDisc(disc) {
-      getDiscInfo(disc.content_id).then(res => {
-        console.log(res)
+      console.log(disc)
+      this.$router.push({
+        path: `/recommend/${disc.content_id}`
       })
+      this.setCurrentDisc(disc)
     },
     // 获取推荐列表
     _getRecommend() {
@@ -97,13 +103,22 @@ export default {
       if (this.isImgLoaded) return
       this.isImgLoaded = true
       this.$refs.scroll.refresh()
-    }
+    },
+    ...mapMutations({
+      setCurrentDisc: 'SET_CURRENT_DISC'
+    })
   }
 }
 </script>
 <style lang="stylus" scoped>
 @import '~common/stylus/variable';
 
+.slide-enter-active, .slide-leave-active {
+  transition: all .3s;
+}
+.slide-enter, .slide-leave-to {
+  transform: translate3d(100%, 0, 0);
+}
 .recommend {
   position: fixed;
   width: 100%;
