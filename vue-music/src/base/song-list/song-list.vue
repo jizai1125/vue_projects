@@ -3,6 +3,9 @@
     <ul>
       <li v-for="(song, idx) in songs" :key="idx" class="item" @click="selectedItem(song, idx)">
         <div class="content">
+          <div v-if="rank" class="rank">
+            <span :class="getRankClass(idx)">{{ getRankText(idx) }}</span>
+          </div>
           <h2 class="name">{{ song.name }}</h2>
           <p class="desc">{{ getDesc(song) }}</p>
         </div>
@@ -24,12 +27,27 @@ export default {
       default: false
     }
   },
+  data() {
+    return {
+      rankImage: ['./first@2x.png', './second@2x.png', './third@2x.png']
+    }
+  },
   methods: {
     getDesc(song) {
       return `${song.singer} - ${song.album}`
     },
     selectedItem(song, idx) {
       this.$emit('select', song, idx)
+    },
+    getRankClass(index) {
+      if (index <= 2) {
+        return `icon icon${index}`
+      } else {
+        return 'text'
+      }
+    },
+    getRankText(index) {
+      if (index > 2) return index + 1
     }
   }
 }

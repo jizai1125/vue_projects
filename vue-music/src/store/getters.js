@@ -17,3 +17,5 @@ export const currentSong = state => {
 }
 
 export const currentDisc = state => state.currentDisc
+
+export const currentRank = state => state.currentRank

@@ -12,7 +12,7 @@ const devServer = {
   before(app) {
     app
       // 推荐轮播图
-      .get('/api/sliderList', function(req, res) {
+      .get('/api/sliderList', (req, res) => {
         var url =
           'https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg'
         axios
@@ -93,16 +93,49 @@ const devServer = {
           })
       })
       // 歌词
-      .get('/api/getLyric', function(req, res) {
+      .get('/api/getLyric', (req, res) => {
         const url = 'https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg'
-        axios.get(url, {
-          headers: {
-            referer: 'https://y.qq.com/portal/player.html'
-          },
-          params: req.query
-        }).then(response => {
-          res.json(response.data)
-        }).catch(err => { console.log(err) })
+        axios
+          .get(url, {
+            headers: {
+              referer: 'https://y.qq.com/portal/player.html'
+            },
+            params: req.query
+          })
+          .then(response => {
+            res.json(response.data)
+          })
+          .catch(err => { console.log(err) })
+      })
+      // 排行榜
+      .get('/api/getRank', (req, res) => {
+        const url = 'https://u.y.qq.com/cgi-bin/musicu.fcg'
+        axios
+          .get(url, {
+            headers: {
+              referer: 'https://y.qq.com/m/index.html?tab=toplist'
+            },
+            params: req.query
+          })
+          .then(response => {
+            res.json(response.data)
+          })
+          .catch(err => { console.log(err) })
+      })
+      // 榜单详情
+      .get('/api/getRankInfo', (req, res) => {
+        const url = 'https://u.y.qq.com/cgi-bin/musicu.fcg'
+        axios
+          .get(url, {
+            headers: {
+              referer: 'https://y.qq.com/n/yqq/toplist/4.html'
+            },
+            params: req.query
+          })
+          .then(response => {
+            res.json(response.data)
+          })
+          .catch(err => { console.log(err) })
       })
   }
 }

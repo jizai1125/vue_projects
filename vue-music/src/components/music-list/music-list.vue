@@ -25,7 +25,7 @@
       @scroll="scroll"
     >
       <div class="song-list-wrapper">
-        <song-list :songs="songList" @select="selectedItem" />
+        <song-list :rank="rank" :songs="songList" @select="selectedItem" />
       </div>
       <div class="loading-container">
         <Loading v-show="!songList.length" />
@@ -74,6 +74,9 @@ export default {
     }
   },
   watch: {
+    rank(newValue) {
+      return newValue
+    },
     scrollY(newY) {
       const diff = this.bgImageHeight + newY
       let zIndex = 0

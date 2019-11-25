@@ -10,6 +10,7 @@ import Rank from '@/components/rank/rank'
 import Search from '@/components/search/search'
 import SingerInfo from '@/components/singer-info/singer-info'
 import DiscInfo from 'components/disc-info/disc-info'
+import RankInfo from 'components/rank-info/rank-info'
 
 Vue.use(Router)
 
@@ -40,11 +41,18 @@ export default new Router({
       ]
     }, {
       path: '/rank',
-      component: Rank
+      component: Rank,
+      children: [
+        {
+          path: ':id',
+          component: RankInfo
+        }
+      ]
     }, {
       path: '/search',
       component: Search
     }
+
     // {
     //   path: "/about",
     //   name: "about",
