@@ -125,10 +125,11 @@ const devServer = {
       // 榜单详情
       .get('/api/getRankInfo', (req, res) => {
         const url = 'https://u.y.qq.com/cgi-bin/musicu.fcg'
+        const topId = JSON.parse(req.query.data).detail.param.topId
         axios
           .get(url, {
             headers: {
-              referer: 'https://y.qq.com/n/yqq/toplist/4.html'
+              referer: `https://y.qq.com/n/yqq/toplist/${topId}.html`
             },
             params: req.query
           })

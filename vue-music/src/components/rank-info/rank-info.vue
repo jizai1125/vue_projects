@@ -23,7 +23,7 @@ export default {
   },
   data() {
     return {
-      rank: true,
+      rank: false,
       songList: []
     }
   },
@@ -51,11 +51,12 @@ export default {
   methods: {
     _getRankInfo() {
       const topId = this.currentRank && this.currentRank.topId
+      const period = this.currentRank && this.currentRank.period
       if (!topId) {
         this.$router.back()
         return
       }
-      getRankInfo(topId).then(res => {
+      getRankInfo({ topId, period }).then(res => {
         console.log(res)
         if (res.detail.code !== ERR_OK) {
           console.log('<<<GET RANKINFO ERROR>>>')

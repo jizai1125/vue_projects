@@ -2,10 +2,10 @@
   <div class="song-list">
     <ul>
       <li v-for="(song, idx) in songs" :key="idx" class="item" @click="selectedItem(song, idx)">
+        <div v-if="rank" class="rank">
+          <span :class="getRankClass(idx)">{{ getRankText(idx) }}</span>
+        </div>
         <div class="content">
-          <div v-if="rank" class="rank">
-            <span :class="getRankClass(idx)">{{ getRankText(idx) }}</span>
-          </div>
           <h2 class="name">{{ song.name }}</h2>
           <p class="desc">{{ getDesc(song) }}</p>
         </div>
@@ -29,7 +29,6 @@ export default {
   },
   data() {
     return {
-      rankImage: ['./first@2x.png', './second@2x.png', './third@2x.png']
     }
   },
   methods: {

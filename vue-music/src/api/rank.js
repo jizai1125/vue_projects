@@ -34,7 +34,7 @@ export function getRank() {
 }
 
 // 获取排行榜详情
-export function getRankInfo(topId, offset = 0, num = 20) {
+export function getRankInfo({ topId, offset = 0, num = 24, period }) {
   return axios
     .get('/api/getRankInfo', {
       params: {
@@ -46,19 +46,19 @@ export function getRankInfo(topId, offset = 0, num = 20) {
         platform: 'yqq.json',
         needNewCode: 0,
         data: {
-          'detail': {
-            'module': 'musicToplist.ToplistInfoServer',
-            'method': 'GetDetail',
-            'param': {
+          detail: {
+            module: 'musicToplist.ToplistInfoServer',
+            method: 'GetDetail',
+            param: {
               topId, // 不同榜单id
               offset, // 页码
               num, // 条数
-              period: new Date().toLocaleDateString().replace(/\//g, '-')
+              period
             }
           },
-          'comm': {
-            'ct': 24,
-            'cv': 0
+          comm: {
+            ct: 24,
+            cv: 0
           }
         }
       }
@@ -71,4 +71,3 @@ export function getRankInfo(topId, offset = 0, num = 20) {
         console.log(err)
       })
 }
-
