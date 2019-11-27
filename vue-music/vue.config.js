@@ -138,6 +138,36 @@ const devServer = {
           })
           .catch(err => { console.log(err) })
       })
+      // 热门搜索关键词
+      .get('/api/getHotKey', (req, res) => {
+        const url = 'https://u.y.qq.com/cgi-bin/musicu.fcg'
+        axios
+          .get(url, {
+            headers: {
+              referer: 'https://y.qq.com/m/index.html'
+            },
+            params: req.query
+          })
+          .then(response => {
+            res.json(response.data)
+          })
+          .catch(err => { console.log(err) })
+      })
+      // 搜索歌手，歌曲
+      .get('/api/search', (req, res) => {
+        const url = 'https://c.y.qq.com/soso/fcgi-bin/search_for_qq_cp'
+        axios
+          .get(url, {
+            headers: {
+              referer: 'https://y.qq.com/m/index.html'
+            },
+            params: req.query
+          })
+          .then(response => {
+            res.json(response.data)
+          })
+          .catch(err => { console.log(err) })
+      })
   }
 }
 
