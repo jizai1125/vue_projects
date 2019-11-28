@@ -26,7 +26,9 @@
 
 import SearchBox from 'base/search-box/search-box'
 import Suggest from 'components/suggest/suggest'
+import { getSongKey } from 'api/singer'
 import { getHotKey } from 'api/search'
+import { createSong } from 'common/js/song'
 import { ERR_OK } from 'api/config'
 export default {
   name: 'Search',

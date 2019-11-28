@@ -43,25 +43,25 @@ export function getHotKey() {
 }
 
 // p（页码）, w（关键词）, catzhida(是否检索歌手)
-export function search({ word, page, showSinger }) {
+export function search({ word, page, showSinger, perpage }) {
   return axios
     .get('/api/search', {
       params: {
         ...commonParams,
+        perpage,
+        p: page,
+        w: word,
+        catZhida: showSinger ? 1 : '',
         _: 1574853247211,
         platform: 'h5',
         needNewCode: 1,
-        w: word,
         zhidaqu: 1,
-        catZhida: showSinger ? 1 : '',
         t: 0,
         flag: 1,
         ie: 'utf-8',
         sem: 1,
         aggr: 0,
-        perpage: 20,
         n: 20,
-        p: page,
         remoteplace: 'txt.mqq.all'
       }
     })

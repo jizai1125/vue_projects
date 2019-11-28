@@ -22,6 +22,10 @@ export default {
     listenScroll: {
       type: Boolean,
       defalut: false
+    },
+    pullup: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -42,6 +46,7 @@ export default {
     }, 20)
   },
   methods: {
+    // 初始化滚动
     _initScroll() {
       if (!this.$refs.wrapper) return
       this.scroll = new BScroll(this.$refs.wrapper, {
@@ -52,6 +57,13 @@ export default {
       if (this.listenScroll) {
         this.scroll.on('scroll', pos => {
           this.$emit('scroll', pos)
+        })
+      }
+      if (this.pullup) {
+        this.scroll.on('scrollEnd', () => {
+          if (this.scroll.y <= (this.scroll.maxScrollY + 50)) {
+            this.$emit('scrollToEnd')
+          }
         })
       }
     },

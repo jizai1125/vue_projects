@@ -9,10 +9,8 @@
 </template>
 <script>
 import { getSingerSong } from 'api/singer'
-import { getSongKey } from 'api/singer'
 import { ERR_OK } from 'api/config'
 import { mapGetters } from 'vuex'
-import { createSong } from 'common/js/song'
 
 import MusicList from 'components/music-list/music-list'
 
