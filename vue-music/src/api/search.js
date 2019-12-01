@@ -70,7 +70,7 @@ export function search({ word, page, showSinger, perpage }) {
         return Promise.resolve(res.data)
       },
       err => {
-        console.log(err)
+        return Promise.reject(err)
       }
     )
 }

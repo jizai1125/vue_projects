@@ -17,8 +17,11 @@
       </div>
     </div>
     <div v-show="query" class="search-result">
-      <suggest :query="query" :show-singer="showSinger" />
+      <suggest :query="query" :show-singer="showSinger" @beforeListScroll="blurInput" />
     </div>
+    <transition name="slide">
+      <router-view />
+    </transition>
   </div>
 </template>
 
@@ -26,9 +29,7 @@
 
 import SearchBox from 'base/search-box/search-box'
 import Suggest from 'components/suggest/suggest'
-import { getSongKey } from 'api/singer'
 import { getHotKey } from 'api/search'
-import { createSong } from 'common/js/song'
 import { ERR_OK } from 'api/config'
 export default {
   name: 'Search',
@@ -47,6 +48,10 @@ export default {
     this._getHotKey()
   },
   methods: {
+    blurInput() {
+      console.log('object')
+      this.$refs.searchBox.blur()
+    },
     queryChange(query) {
       this.query = query
     },

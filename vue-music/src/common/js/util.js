@@ -12,4 +12,14 @@ export function shuffle(arr) {
   }
   return _arr
 }
+// 防抖函数
+export function debounce(fn, wait) {
+  let timeId = null
+  return function(...args) {
+    if (timeId) clearTimeout(timeId)
+    timeId = setTimeout(() => {
+      fn.apply(this, args)
+    }, wait)
+  }
+}
 

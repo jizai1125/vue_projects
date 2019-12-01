@@ -3,11 +3,13 @@
     ref="suggest"
     class="suggest"
     :pullup="pullup"
-    :data="songList"
+    :before-scroll="beforeScroll"
+    :data="list"
     @scrollToEnd="scrollToEnd"
+    @beforeScroll="beforeListScroll"
   >
     <ul class="suggest-list">
-      <li v-for="(item, index) in songList" :key="index" class="suggest-item">
+      <li v-for="(item, index) in list" :key="index" class="suggest-item" @click="selectItem(item)">
         <div class="icon">
           <i :class="getIconClas(item)" />
         </div>
@@ -17,6 +19,9 @@
       </li>
       <Loading v-show="hasMore" title="" />
     </ul>
+    <div v-show="!hasMore && !list.length" class="no-result-wrapper">
+      <no-result title="抱歉，暂无搜索结果" />
+    </div>
   </Scroll>
 </template>
 
@@ -27,12 +32,14 @@ import { createSong } from 'common/js/song'
 import { getSongKey } from 'api/singer'
 import Scroll from 'base/scroll/scroll'
 import Loading from 'base/loading/loading'
+import NoResult from 'base/no-result/no-result'
+import { mapMutations, mapActions } from 'vuex'
 
 const TYPE_SINGER = 'singer'
 
 export default {
   name: 'Suggest',
-  components: { Scroll, Loading },
+  components: { Scroll, Loading, NoResult },
   props: {
     query: {
       type: String,
@@ -47,9 +54,11 @@ export default {
     return {
       page: 1, // 页码
       perpage: 20, // 每页数量
-      songList: [],
+      list: [],
       pullup: true, // 上拉刷新
-      hasMore: true // 是否有更多数据
+      beforeScroll: true,
+      hasMore: true, // 是否有更多数据
+      isScrollEnd: false
     }
   },
   watch: {
@@ -61,50 +70,68 @@ export default {
     scrollToEnd() {
       this.loadMore()
     },
+    beforeListScroll() {
+      this.$emit('beforeListScroll')
+    },
+    selectItem(item) {
+      console.log(item)
+      if (item.type === TYPE_SINGER) {
+        // 跳转到歌手详情
+        item.singer_pic = `http://y.gtimg.cn/music/photo_new/T001R150x150M000${item.singermid}.webp`
+        this.setSinger(item)
+        this.$router.push({
+          path: `/search/${item.singermid}`
+        })
+      } else {
+        // 设置播放列表
+        this.insertSong(item)
+      }
+    },
+    // 请求数据
+    requestData() {
+      search({
+        word: this.query,
+        page: this.page,
+        showSinger: this.showSinger,
+        perpage: this.perpage
+      })
+        .then(res => {
+          console.log(res)
+          this.isScrollEnd = false
+          if (res.code !== ERR_OK) {
+            console.log('<<<SEARCH ERROR>>>', res)
+            return
+          }
+          this._genResult(res.data)
+          this._checkMore(res.data)
+        })
+        .catch(err => {
+          this.isScrollEnd = false
+          console.log('error', err)
+        })
+    },
     // 查询
     search() {
       this.hasMore = true
       this.page = 1
-      this.songList = []
+      this.list = []
       this.$refs.suggest.scrollTo(0, 0)
       if (!this.query.trim()) return
-      search({
-        word: this.query,
-        page: this.page,
-        showSinger: this.showSinger,
-        perpage: this.perpage
-      }).then(res => {
-        console.log(res)
-        if (res.code !== ERR_OK) {
-          console.log('<<<SEARCH ERROR>>>', res)
-          return
-        }
-        this._genResult(res.data)
-        this._checkMore(res.data)
-      })
+      this.requestData()
     },
     // 加载更多数据
     loadMore() {
       if (!this.hasMore) return
+      if (this.isScrollEnd) return
+      this.isScrollEnd = true
       this.page++
-      search({
-        word: this.query,
-        page: this.page,
-        showSinger: this.showSinger,
-        perpage: this.perpage
-      }).then(res => {
-        console.log(res)
-        if (res.code !== ERR_OK) {
-          console.log('<<<SEARCH ERROR>>>', res)
-          return
-        }
-        this._genResult(res.data)
-        this._checkMore(res.data)
-      })
+      this.requestData()
     },
+    // 获取对应图标类名
     getIconClas(item) {
       return item.type === TYPE_SINGER ? 'icon-mine' : 'icon-music'
     },
+    // 获取显示格式
     getDesc(item) {
       return item.type === TYPE_SINGER ? item.singername : `${item.name} - ${item.singer}`
     },
@@ -118,7 +145,7 @@ export default {
     // 将数据进行分类，歌手/歌曲
     async _genResult(data) {
       let result = []
-      if (data.zhida && data.zhida.albumid) {
+      if (data.zhida && data.zhida.type) {
         result.push({
           ...data.zhida,
           type: TYPE_SINGER
@@ -127,8 +154,7 @@ export default {
       if (data.song) {
         const res = await this._normalizeSong(data.song.list)
         result = result.concat(res)
-        this.songList = this.songList.concat(result)
-        console.log(this.songList)
+        this.list = this.list.concat(result)
       }
     },
     async _normalizeSong(list) {
@@ -147,13 +173,20 @@ export default {
           console.error('<<<GET SONG PURL ERR>>>', response)
           return
         }
-        const purl = response.req_0.data.midurlinfo[0].purl
+        const midurlinfo = response.req_0.data.midurlinfo[0]
+        const purl = midurlinfo ? midurlinfo.purl : ''
         result.push(createSong(item, purl))
       }
       return result
       // === 需完善歌曲url请求的逻辑 ===
       // return list.map(item => createSong(item.songInfo, ''))
-    }
+    },
+    ...mapMutations({
+      setSinger: 'SET_SINGER'
+    }),
+    ...mapActions([
+      'insertSong'
+    ])
   }
 
 }

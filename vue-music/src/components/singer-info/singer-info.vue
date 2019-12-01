@@ -9,8 +9,10 @@
 </template>
 <script>
 import { getSingerSong } from 'api/singer'
+import { getSongKey } from 'api/singer'
 import { ERR_OK } from 'api/config'
 import { mapGetters } from 'vuex'
+import { createSong } from 'common/js/song'
 
 import MusicList from 'components/music-list/music-list'
 
@@ -31,7 +33,7 @@ export default {
   },
   created() {
     if (!this.singer) return
-    this._getSongList(this.singer.singer_mid)
+    this._getSongList(this.singer.singer_mid || this.singer.singermid)
   },
   methods: {
     _getSongList(singerId) {
