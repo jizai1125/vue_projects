@@ -74,7 +74,6 @@ export default {
       this.$emit('beforeListScroll')
     },
     selectItem(item) {
-      console.log(item)
       if (item.type === TYPE_SINGER) {
         // 跳转到歌手详情
         item.singer_pic = `http://y.gtimg.cn/music/photo_new/T001R150x150M000${item.singermid}.webp`
@@ -83,9 +82,10 @@ export default {
           path: `/search/${item.singermid}`
         })
       } else {
-        // 设置播放列表
+        // 插入播放列表
         this.insertSong(item)
       }
+      this.$emit('select')
     },
     // 请求数据
     requestData() {
@@ -134,6 +134,9 @@ export default {
     // 获取显示格式
     getDesc(item) {
       return item.type === TYPE_SINGER ? item.singername : `${item.name} - ${item.singer}`
+    },
+    refresh() {
+      this.$refs.suggest.refresh()
     },
     // 判断是否还有数据
     _checkMore(data) {

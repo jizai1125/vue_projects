@@ -1,7 +1,7 @@
 import * as types from './mutation-type'
 import { playMode } from 'common/js/config'
 import { shuffle } from 'common/js/util'
-
+import { saveSearch, deleteSearch, clearSearch } from 'common/js/cache'
 // 选中歌曲播放
 export function selectPlay({ commit, state }, { list, index }) {
   commit(types.SET_SEQUENCE_LIST, list)
@@ -63,4 +63,17 @@ export function insertSong({ commit, state }, song) {
   commit(types.SET_CURRENT_INDEX, currentIndex)
   commit(types.SET_FULL_SCREEN, true)
   commit(types.SET_PLAYING_STATE, true)
+}
+
+// 保存搜索历史
+export function saveSearchHistory({ commit }, query) {
+  commit(types.SET_SEARCH_HISTORY, saveSearch(query))
+}
+// 删除搜索历史
+export function deleteSearchHistory({ commit }, query) {
+  commit(types.SET_SEARCH_HISTORY, deleteSearch(query))
+}
+
+export function clearSearchHistory({ commit }) {
+  commit(types.SET_SEARCH_HISTORY, clearSearch())
 }

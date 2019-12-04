@@ -26,6 +26,9 @@ const mutations = {
   },
   [types.SET_CURRENT_RANK](state, rank) {
     state.currentRank = rank
+  },
+  [types.SET_SEARCH_HISTORY](state, history) {
+    state.searchHistory = history
   }
 }
 export default mutations
