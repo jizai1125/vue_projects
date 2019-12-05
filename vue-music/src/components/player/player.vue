@@ -99,11 +99,13 @@
             <i :class="iconMiniPlay" class="icon-mini" @click.stop="togglePlaying" />
           </progress-circle>
         </div>
-        <div class="control">
+        <div class="control" @click.stop="showPlaylist">
           <i class="icon-playlist" />
         </div>
       </div>
     </transition>
+    <!-- 播放列表 -->
+    <Playlist ref="playlist" />
     <audio
       ref="audio"
       :src="currentSong.url"
@@ -122,13 +124,13 @@ import ProgressBar from 'base/progress-bar/progress-bar'
 import ProgressCircle from 'base/progress-circle/progress-circle'
 import Scroll from 'base/scroll/scroll'
 import { playMode } from 'common/js/config'
-import { shuffle } from 'common/js/util'
 import Lyric from 'lyric-parser'
+import Playlist from 'components/playlist/playlist'
+import { playerMixin } from 'common/js/mixin'
 
 export default {
-  components: { ProgressBar, ProgressCircle, Scroll },
-  props: {
-  },
+  components: { ProgressBar, ProgressCircle, Scroll, Playlist },
+  mixins: [playerMixin],
   data() {
     return {
       songReady: false,
@@ -156,25 +158,20 @@ export default {
     iconMiniPlay() {
       return this.playing ? 'icon-pause-mini' : 'icon-play-mini'
     },
-    iconMode() {
-      return this.mode === playMode.sequence ? 'icon-sequence' : this.mode === playMode.loop ? 'icon-loop' : 'icon-random'
-    },
     ...mapGetters([
       'playing',
       'fullScreen',
-      'playList',
-      'sequenceList',
-      'currentSong',
-      'currentIndex',
-      'mode'
+      'currentIndex'
     ])
   },
   watch: {
     currentSong(newSong, oldSong) {
+      if (!newSong.id) return
       if (newSong.id === oldSong.id) return
       this.currentLyric && this.currentLyric.stop()
       // this.$nextTick(() => {
       setTimeout(() => {
+        this.$refs.audio.play()
         this.songReady = true
         this.getLyric()
       }, 1000)
@@ -277,24 +274,6 @@ export default {
       this.$refs.cdWrapper.style.opacity = opacity
       this.$refs.cdWrapper.style.transition = `all ${time}ms`
     },
-    // 切换播放模式
-    changeMode() {
-      const mode = (this.mode + 1) % 3
-      this.setplayMode(mode)
-      let list = null
-      if (mode === playMode.random) {
-        list = shuffle(this.sequenceList)
-      } else {
-        list = this.sequenceList
-      }
-      this.resetCurrentIndex(list)
-      this.setPlayList(list)
-    },
-    // 设置当前歌曲索引
-    resetCurrentIndex(list) {
-      const index = list.findIndex(item => item.id === this.currentSong.id)
-      this.setCurrentIndex(index)
-    },
     // 歌曲加载完毕
     ready() {
       this.songReady = true
@@ -353,6 +332,10 @@ export default {
         return
       }
       this.nextSong()
+    },
+    // 显示播放列表
+    showPlaylist() {
+      this.$refs.playlist.show()
     },
     // cd图片动画
     enter(el, done) {
@@ -416,11 +399,7 @@ export default {
       }
     },
     ...mapMutations({
-      setFullScreen: 'SET_FULL_SCREEN',
-      setPlayingState: 'SET_PLAYING_STATE',
-      setCurrentIndex: 'SET_CURRENT_INDEX',
-      setplayMode: 'SET_PLAY_MODE',
-      setPlayList: 'SET_PLAYLIST'
+      setFullScreen: 'SET_FULL_SCREEN'
     })
   }
 }

@@ -27,7 +27,7 @@ export function randomPlay({ commit }, { list }) {
   commit(types.SET_PLAYLIST, randomList)
   commit(types.SET_CURRENT_INDEX, 0)
 }
-// 插入播放列表
+// 插入歌曲到播放列表
 export function insertSong({ commit, state }, song) {
   const playList = state.playList.slice()
   const sequenceList = state.sequenceList.slice()
@@ -73,7 +73,32 @@ export function saveSearchHistory({ commit }, query) {
 export function deleteSearchHistory({ commit }, query) {
   commit(types.SET_SEARCH_HISTORY, deleteSearch(query))
 }
-
+// 清空搜索历史
 export function clearSearchHistory({ commit }) {
   commit(types.SET_SEARCH_HISTORY, clearSearch())
+}
+// 从播放列表删除歌曲
+export function deleteSong({ commit, state }, song) {
+  const playList = state.playList.slice()
+  const sequenceList = state.sequenceList.slice()
+  let currentIndex = state.currentIndex
+  const pIndex = playList.findIndex(item => item.id === song.id)
+  playList.splice(pIndex, 1)
+  const sIndex = sequenceList.findIndex(item => item.id === song.id)
+  sequenceList.splice(sIndex, 1)
+  if (currentIndex > pIndex || currentIndex === playList.length) {
+    currentIndex--
+  }
+  commit(types.SET_PLAYLIST, playList)
+  commit(types.SET_SEQUENCE_LIST, sequenceList)
+  commit(types.SET_CURRENT_INDEX, currentIndex)
+  const playingState = playList.length > 0
+  commit(types.SET_PLAYING_STATE, playingState)
+}
+// 清空播放列表
+export function clearPlaylist({ commit }) {
+  commit(types.SET_PLAYLIST, [])
+  commit(types.SET_SEQUENCE_LIST, [])
+  commit(types.SET_CURRENT_INDEX, -1)
+  commit(types.SET_PLAYING_STATE, false)
 }

@@ -83,6 +83,7 @@ export default {
       this.scroll && this.scroll.disable()
     },
     refresh() {
+      console.log('refresh')
       this.scroll && this.scroll.refresh()
     },
     scrollTo() {

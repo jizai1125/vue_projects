@@ -1,17 +1,19 @@
 ### 1. 待办
   
-  - 学习 `vue-lazyload` 源码
+  - [x] 学习 `vue-lazyload` 源码
+  - 学习 `good-storage` 源码
 
 ### 2. Note
 
   - css3: `animation-play-state` 设置动画状态
+  - vue事件： 通过在子元素 `@click.stop` 防止点击子元素事件冒泡到父元素
 
 ### 3. 组件
 
   推荐页 | 歌手页 | 排行页 | 搜索页
   |:--:|:--:|:--:|:--:|
-  recommend.vue | fds | fds| fds
-  slider.vue、scroll.vue | fd | fd | fds
+  recommend.vue | singer.vue | rank.vue | search.vue
+  disc-info.vue、slider.vue、scroll.vue | singer-info.vue | rank-info.vue | search-list.vue
 
 ### 4. 问题
 
@@ -60,6 +62,14 @@
 - > 播放器组件`player.vue`问题
 ```javascript
 问题： 歌词点击时会切换到cd页，或者点击cd页时会切换到歌词页;手机端测试时滑动有问题
+
+原因： 
+
+解决方法： 
+```
+- > 播放列表组件`playerlist.vue`问题
+```javascript
+问题： 排行榜榜单点击歌曲，点击播放列表，删除一些歌曲后，再点击榜单歌曲，然后点击播放列表，scroll滚动有问题
 
 原因： 
 
