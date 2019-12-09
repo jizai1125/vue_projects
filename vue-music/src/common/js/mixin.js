@@ -1,4 +1,4 @@
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import { playMode } from 'common/js/config'
 import { shuffle } from 'common/js/util'
 
@@ -27,6 +27,7 @@ export const playlistMixin = {
   }
 }
 
+// 播放器player相关
 export const playerMixin = {
   computed: {
     iconMode() {
@@ -59,13 +60,43 @@ export const playerMixin = {
       this.setCurrentIndex(index)
     },
     ...mapMutations({
-      // setFullScreen: 'SET_FULL_SCREEN',
-      // setPlayingState: 'SET_PLAYING_STATE',
       setCurrentIndex: 'SET_CURRENT_INDEX',
       setplayMode: 'SET_PLAY_MODE',
       setPlayList: 'SET_PLAYLIST',
-      setPlayingState: 'SET_PLAYING_STATE',
-      setCurrentIndex: 'SET_CURRENT_INDEX'
+      setPlayingState: 'SET_PLAYING_STATE'
     })
+  }
+}
+
+// 搜索相关
+export const searchMixin = {
+  computed: {
+    ...mapGetters([
+      'searchHistory'
+    ])
+  },
+  data() {
+    return {
+      query: '',
+      refreshDelay: 100
+    }
+  },
+  methods: {
+    addQuery(query) {
+      this.$refs.searchBox.setQuery(query)
+    },
+    queryChange(query) {
+      this.query = query
+    },
+    blurInput() {
+      this.$refs.searchBox.blur()
+    },
+    saveSearch() {
+      this.saveSearchHistory(this.query)
+    },
+    ...mapActions([
+      'saveSearchHistory',
+      'deleteSearchHistory'
+    ])
   }
 }

@@ -21,3 +21,5 @@ export const currentDisc = state => state.currentDisc
 export const currentRank = state => state.currentRank
 
 export const searchHistory = state => state.searchHistory
+
+export const playHistory = state => state.playHistory

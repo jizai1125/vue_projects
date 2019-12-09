@@ -9,9 +9,16 @@
             <span class="clear" @click="showConfirm"><i class="icon-clear" /></span>
           </h1>
         </div>
-        <scroll ref="listContent" class="list-content" :data="sequenceList">
+        <scroll ref="listContent" class="list-content" :data="sequenceList" :refresh-delay="refreshDelay">
           <transition-group name="list" tag="ul">
-            <li v-for="(item, index) in sequenceList" ref="listItem" :key="item.id" class="item" @click="selectItem(item, index)">
+            <li
+              v-for="(item, index) in sequenceList"
+              ref="listItem"
+              :key="item.id"
+              class="item"
+              :data-id="item.id"
+              @click="selectItem(item, index)"
+            >
               <i class="current" :class="getCurrentIcon(item)" />
               <span class="text">{{ item.name }}</span>
               <span class="like">
@@ -24,7 +31,7 @@
           </transition-group>
         </scroll>
         <div class="list-operate">
-          <div class="add">
+          <div class="add" @click="addSong">
             <i class="icon-add" />
             <span class="text">添加歌曲到队列</span>
           </div>
@@ -34,6 +41,7 @@
         </div>
       </div>
       <confirm ref="confirm" text="是否清空列表？" confirm-btn-text="清空" @confirm="clear" />
+      <add-song ref="addSong" />
     </div>
   </transition>
 </template>
@@ -41,6 +49,7 @@
 <script>
 import Scroll from 'base/scroll/scroll'
 import Confirm from 'base/confirm/confirm'
+import AddSong from 'components/addSong/addSong'
 import { mapActions } from 'vuex'
 import { playMode } from 'common/js/config'
 import { playerMixin } from 'common/js/mixin'
@@ -49,13 +58,15 @@ export default {
   name: 'Playlist',
   components: {
     Scroll,
-    Confirm
+    Confirm,
+    AddSong
   },
   mixins: [playerMixin],
   data() {
     return {
       showFlag: false,
-      modes: ['顺序播放', '单曲循环', '随机播放']
+      modes: ['顺序播放', '单曲循环', '随机播放'],
+      refreshDelay: 100
     }
   },
   computed: {
@@ -65,11 +76,15 @@ export default {
   },
   watch: {
     currentSong(newSong, oldSong) {
+      console.log(newSong)
       if (!this.showFlag || newSong.id === oldSong.id) return
       this.scrollToCurrent(newSong)
     }
   },
   methods: {
+    addSong() {
+      this.$refs.addSong.show()
+    },
     showConfirm() {
       this.$refs.confirm.show()
     },
@@ -87,7 +102,6 @@ export default {
       return this.currentSong.id === item.id ? 'icon-play' : ''
     },
     selectItem(song, index) {
-      // this.hide()
       if (this.mode === playMode.random) {
         index = this.playList.findIndex(item => item.id === song.id)
       }
@@ -96,8 +110,17 @@ export default {
     },
     // 滚动到当前歌曲
     scrollToCurrent(current) {
-      const index = this.sequenceList.findIndex(item => item.id === current.id)
-      this.$refs.listContent.scrollToElement(this.$refs.listItem[index], 300)
+      console.log(current)
+      console.log(this)
+      this.$nextTick()
+        .then(() => {
+          // const index = this.sequenceList.findIndex(item => item.id === current.id)
+          // this.$refs.listContent.scrollToElement(this.$refs.listItem[index], 300)
+          const currentEleIndex = this.$refs.listItem.findIndex(item => {
+            return item.dataset.id === current.id.toString()
+          })
+          this.$refs.listContent.scrollToElement(this.$refs.listItem[currentEleIndex], 300)
+        })
     },
     deleteOne(item) {
       this.deleteSong(item)

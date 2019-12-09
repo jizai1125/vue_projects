@@ -1,18 +1,19 @@
 <template>
   <div v-show="searches.length" class="search-list">
-    <ul>
+    <transition-group name="list" tag="ul">
       <li v-for="item in searches" :key="item" class="search-item" @click="selectItem(item)">
         <span class="text">{{ item }}</span>
         <span class="icon" @click.stop="deleteOne(item)">
           <i class="icon-delete" />
         </span>
       </li>
-    </ul>
+    </transition-group>
   </div>
 </template>
 
 <script>
 export default {
+  name: 'SearchList',
   props: {
     searches: {
       type: Array,

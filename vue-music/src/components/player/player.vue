@@ -119,7 +119,7 @@
 
 <script>
 import animations from 'create-keyframe-animation'
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import ProgressBar from 'base/progress-bar/progress-bar'
 import ProgressCircle from 'base/progress-circle/progress-circle'
 import Scroll from 'base/scroll/scroll'
@@ -277,6 +277,7 @@ export default {
     // 歌曲加载完毕
     ready() {
       this.songReady = true
+      this.savePlayHistory(this.currentSong)
     },
     // 歌曲加载错误
     error() {
@@ -400,7 +401,10 @@ export default {
     },
     ...mapMutations({
       setFullScreen: 'SET_FULL_SCREEN'
-    })
+    }),
+    ...mapActions([
+      'savePlayHistory'
+    ])
   }
 }
 </script>
