@@ -11,6 +11,7 @@ import Search from '@/components/search/search'
 import SingerInfo from '@/components/singer-info/singer-info'
 import DiscInfo from 'components/disc-info/disc-info'
 import RankInfo from 'components/rank-info/rank-info'
+import UserCenter from 'components/user-center/user-center'
 
 Vue.use(Router)
 
@@ -57,6 +58,9 @@ export default new Router({
           component: SingerInfo
         }
       ]
+    }, {
+      path: '/user',
+      component: UserCenter
     }
 
     // {

@@ -21,8 +21,8 @@
             >
               <i class="current" :class="getCurrentIcon(item)" />
               <span class="text">{{ item.name }}</span>
-              <span class="like">
-                <i class="icon-not-favorite" />
+              <span class="like" @click.stop="toggleFavorite(item)">
+                <i :class="getFavoriteIcon(item)" />
               </span>
               <span class="delete" @click.stop="deleteOne(item)">
                 <i class="icon-delete" />
@@ -76,7 +76,6 @@ export default {
   },
   watch: {
     currentSong(newSong, oldSong) {
-      console.log(newSong)
       if (!this.showFlag || newSong.id === oldSong.id) return
       this.scrollToCurrent(newSong)
     }

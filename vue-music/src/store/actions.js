@@ -1,7 +1,10 @@
 import * as types from './mutation-type'
 import { playMode } from 'common/js/config'
 import { shuffle } from 'common/js/util'
-import { saveSearch, deleteSearch, clearSearch, savePlay } from 'common/js/cache'
+import {
+  saveSearch, deleteSearch,
+  clearSearch, savePlay,
+  saveFavorite, deleteFavorite } from 'common/js/cache'
 // 选中歌曲播放
 export function selectPlay({ commit, state }, { list, index }) {
   commit(types.SET_SEQUENCE_LIST, list)
@@ -105,4 +108,12 @@ export function clearPlaylist({ commit }) {
 // 保存最近播放歌曲
 export function savePlayHistory({ commit }, song) {
   commit(types.SET_PLAY_HISTORY, savePlay(song))
+}
+// 收藏歌曲
+export function saveFavoriteSong({ commit }, song) {
+  commit(types.SET_FAVORITE_LIST, saveFavorite(song))
+}
+// 删除歌曲
+export function deleteFavoriteSong({ commit }, song) {
+  commit(types.SET_FAVORITE_LIST, deleteFavorite(song))
 }
