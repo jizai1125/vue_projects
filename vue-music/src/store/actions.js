@@ -67,19 +67,6 @@ export function insertSong({ commit, state }, song) {
   commit(types.SET_FULL_SCREEN, true)
   commit(types.SET_PLAYING_STATE, true)
 }
-
-// 保存搜索历史
-export function saveSearchHistory({ commit }, query) {
-  commit(types.SET_SEARCH_HISTORY, saveSearch(query))
-}
-// 删除搜索历史
-export function deleteSearchHistory({ commit }, query) {
-  commit(types.SET_SEARCH_HISTORY, deleteSearch(query))
-}
-// 清空搜索历史
-export function clearSearchHistory({ commit }) {
-  commit(types.SET_SEARCH_HISTORY, clearSearch())
-}
 // 从播放列表删除歌曲
 export function deleteSong({ commit, state }, song) {
   const playList = state.playList.slice()
@@ -98,6 +85,19 @@ export function deleteSong({ commit, state }, song) {
   const playingState = playList.length > 0
   commit(types.SET_PLAYING_STATE, playingState)
 }
+// 保存搜索历史
+export function saveSearchHistory({ commit }, query) {
+  commit(types.SET_SEARCH_HISTORY, saveSearch(query))
+}
+// 删除搜索历史
+export function deleteSearchHistory({ commit }, query) {
+  commit(types.SET_SEARCH_HISTORY, deleteSearch(query))
+}
+// 清空搜索历史
+export function clearSearchHistory({ commit }) {
+  commit(types.SET_SEARCH_HISTORY, clearSearch())
+}
+
 // 清空播放列表
 export function clearPlaylist({ commit }) {
   commit(types.SET_PLAYLIST, [])

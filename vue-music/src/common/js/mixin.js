@@ -61,7 +61,6 @@ export const playerMixin = {
       this.setCurrentIndex(index)
     },
     getFavoriteIcon(song) {
-      // console.log(song)
       return this.isFavorite(song) ? 'icon-favorite' : 'icon-not-favorite'
     },
     // 收藏歌曲
@@ -70,7 +69,6 @@ export const playerMixin = {
     },
     isFavorite(song) {
       const flag = this.favoriteList.some(item => item.id === song.id)
-      // console.log(flag)
       return flag
     },
     ...mapMutations({
