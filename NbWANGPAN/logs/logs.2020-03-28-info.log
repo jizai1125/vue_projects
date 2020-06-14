@@ -1,0 +1,130 @@
+[2020-03-28T17:54:21.187] [INFO] default - {
+  method: 'POST',
+  url: '/api/userlogin',
+  header: {
+    host: 'localhost:3000',
+    connection: 'keep-alive',
+    'content-length': '33',
+    dnt: '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36',
+    'content-type': 'application/json;charset=UTF-8',
+    accept: 'application/json, text/plain, */*',
+    authid: 'atinull',
+    skyauth: 'autnull',
+    'sec-fetch-dest': 'empty',
+    origin: 'http://localhost:8080',
+    'sec-fetch-site': 'same-site',
+    'sec-fetch-mode': 'cors',
+    referer: 'http://localhost:8080/',
+    'accept-encoding': 'gzip, deflate, br',
+    'accept-language': 'zh-CN,zh;q=0.9'
+  }
+}
+[2020-03-28T17:55:21.433] [INFO] default - {
+  method: 'POST',
+  url: '/api/userlogin',
+  header: {
+    host: 'localhost:3000',
+    connection: 'keep-alive',
+    'content-length': '33',
+    dnt: '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36',
+    'content-type': 'application/json;charset=UTF-8',
+    accept: 'application/json, text/plain, */*',
+    authid: 'atinull',
+    skyauth: 'autnull',
+    'sec-fetch-dest': 'empty',
+    origin: 'http://localhost:8080',
+    'sec-fetch-site': 'same-site',
+    'sec-fetch-mode': 'cors',
+    referer: 'http://localhost:8080/',
+    'accept-encoding': 'gzip, deflate, br',
+    'accept-language': 'zh-CN,zh;q=0.9'
+  }
+}
+[2020-03-28T17:56:28.788] [INFO] default - {
+  method: 'POST',
+  url: '/api/userregister',
+  header: {
+    host: 'localhost:3000',
+    connection: 'keep-alive',
+    'content-length': '33',
+    dnt: '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36',
+    'content-type': 'application/json;charset=UTF-8',
+    accept: 'application/json, text/plain, */*',
+    authid: 'atinull',
+    skyauth: 'autnull',
+    'sec-fetch-dest': 'empty',
+    origin: 'http://localhost:8080',
+    'sec-fetch-site': 'same-site',
+    'sec-fetch-mode': 'cors',
+    referer: 'http://localhost:8080/',
+    'accept-encoding': 'gzip, deflate, br',
+    'accept-language': 'zh-CN,zh;q=0.9'
+  }
+}
+[2020-03-28T17:56:33.702] [INFO] default - {
+  method: 'POST',
+  url: '/api/userlogin',
+  header: {
+    host: 'localhost:3000',
+    connection: 'keep-alive',
+    'content-length': '33',
+    dnt: '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36',
+    'content-type': 'application/json;charset=UTF-8',
+    accept: 'application/json, text/plain, */*',
+    authid: 'atinull',
+    skyauth: 'autnull',
+    'sec-fetch-dest': 'empty',
+    origin: 'http://localhost:8080',
+    'sec-fetch-site': 'same-site',
+    'sec-fetch-mode': 'cors',
+    referer: 'http://localhost:8080/',
+    'accept-encoding': 'gzip, deflate, br',
+    'accept-language': 'zh-CN,zh;q=0.9'
+  }
+}
+[2020-03-28T17:56:33.833] [INFO] default - {
+  method: 'GET',
+  url: '/api/cloudlist?foldId=',
+  header: {
+    host: 'localhost:3000',
+    connection: 'keep-alive',
+    accept: 'application/json, text/plain, */*',
+    authid: 'ati5e7f1f4c538371226c38cf37',
+    skyauth: 'auteyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4iLCJpYXQiOjE1ODUzODkzOTMsImV4cCI6MTU4NTM4OTk5M30.Srf_bf7fcYEqiWpTGGfd9TUdqv0fnJTLCt3YcfJrH2I',
+    'sec-fetch-dest': 'empty',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36',
+    dnt: '1',
+    origin: 'http://localhost:8080',
+    'sec-fetch-site': 'same-site',
+    'sec-fetch-mode': 'cors',
+    referer: 'http://localhost:8080/cloud',
+    'accept-encoding': 'gzip, deflate, br',
+    'accept-language': 'zh-CN,zh;q=0.9'
+  }
+}
+[2020-03-28T17:57:07.924] [INFO] default - {
+  method: 'POST',
+  url: '/api/uploadfile',
+  header: {
+    host: 'localhost:3000',
+    connection: 'keep-alive',
+    'content-length': '23689',
+    authid: 'aut5e7f1f4c538371226c38cf37',
+    skyauth: 'auteyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4iLCJpYXQiOjE1ODUzODkzOTMsImV4cCI6MTU4NTM4OTk5M30.Srf_bf7fcYEqiWpTGGfd9TUdqv0fnJTLCt3YcfJrH2I',
+    'sec-fetch-dest': 'empty',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36',
+    dnt: '1',
+    'content-type': 'multipart/form-data; boundary=----WebKitFormBoundarytCVmpCXjSpyHmLCc',
+    accept: '*/*',
+    origin: 'http://localhost:8080',
+    'sec-fetch-site': 'same-site',
+    'sec-fetch-mode': 'cors',
+    referer: 'http://localhost:8080/cloud',
+    'accept-encoding': 'gzip, deflate, br',
+    'accept-language': 'zh-CN,zh;q=0.9'
+  }
+}

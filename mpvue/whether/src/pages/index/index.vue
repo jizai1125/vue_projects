@@ -107,6 +107,7 @@
     methods: {
       init() {
         const that = this
+        
         wx.getLocation({
           type: 'gcj02', // 返回可以用于wx.openLocation的经纬度
           success(res) {

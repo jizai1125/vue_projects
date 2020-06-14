@@ -204,6 +204,7 @@ export default {
     // 歌词
     getLyric() {
       this.currentSong.getLyric().then(res => {
+        console.log(res)
         this.currentLyric = new Lyric(res, this.handleLyric)
         if (this.playing) {
           this.currentLyric.play()
