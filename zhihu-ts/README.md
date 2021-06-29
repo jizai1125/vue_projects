@@ -33,7 +33,15 @@
   </dropdown>
   ```
 
-  
+- hooks：useClickOutside.ts
+
+  判断点击的位置是否在指定元素内
+
+## day03
+
+- 表单输入组件 ValidateInput.vue
+
+  > v-model原理、$attrs、inheritAttrs
 
 
 

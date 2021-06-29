@@ -17,9 +17,9 @@
 </template>
 
 <script lang="ts">
-import { ref, watch } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 import useClickOutside from '../hooks/useClickOutside'
-export default {
+export default defineComponent({
   name: 'Dropdown',
   props: {
     title: {
@@ -27,7 +27,7 @@ export default {
       required: true
     }
   },
-  setup () {
+  setup (props) {
     // 切换显示下拉项
     const isOpen = ref(false)
     const toggleOpen = () => {
@@ -47,7 +47,7 @@ export default {
       dropdownRef
     }
   }
-}
+})
 </script>
 
 <style scoped>

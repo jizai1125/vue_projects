@@ -17,7 +17,7 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, PropType } from 'vue'
+import { computed, defineComponent, PropType } from 'vue'
 export interface ColumnProps {
   id: number
   title: string
