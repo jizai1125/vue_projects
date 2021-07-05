@@ -32,7 +32,6 @@ export default defineComponent({
     // console.log(columnId)
     const column = store.getters.getColumnById(columnId)
     const list = store.getters.getPostsByCid(columnId)
-
     return {
       column,
       list
