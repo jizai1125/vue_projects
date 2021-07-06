@@ -100,3 +100,42 @@
 
 ## day06
 
+- 新建文章页面 CreatePost.vue
+
+- async await 
+
+  ```js
+  // 等待三秒
+  await new Promise(resolve => setTimeout(resolve, 3000))
+  ```
+
+
+## day07
+
+**函数式调用** Message 组件
+
+核心思路：
+
+1. 利用 vue createApp 继承 Message.vue 创建一个新实例；（vue 2 可以用 **Vue.extend**）
+2. 创建一个新的 dom 节点 node，append 到 body 中;
+3. 调用 app.mounted(node)；
+4. 过 timeout 时间后再卸载 app，删除 dom。
+
+```ts
+import { createApp } = 'vue'
+import Message from './Message.vue'
+function createMessage(message, type, timeout = 2000) {
+    const msgInstance = createApp(Message, {
+        message,
+        type
+    })
+    const msgNode = document.createElement('div')
+    document.body.appendChild(msgNode)
+    msgInstance.mount(msgNode)
+    setTimout(() => {
+        msgInstance.unmount(msgNode)
+        document.body.removeChild(msgNode)
+    }, timeout)
+}
+```
+

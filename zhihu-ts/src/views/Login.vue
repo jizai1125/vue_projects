@@ -35,6 +35,7 @@ import ValidateInput, { RulesProp } from '../components/ValidateInput.vue'
 import ValidateForm from '../components/ValidateForm.vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
+import createMessage from '../components/createMessage'
 
 export default defineComponent({
   components: {
@@ -65,6 +66,7 @@ export default defineComponent({
     const onFormSubmit = (val: boolean) => {
       console.log(val)
       if (val) {
+        createMessage('登录成功！', 'success')
         store.commit('login')
         router.push('/')
       }
