@@ -139,3 +139,9 @@ function createMessage(message, type, timeout = 2000) {
 }
 ```
 
+## day08
+
+ValidateInput.vue 添加自定义校验规则选项 validator
+
+## day09
+

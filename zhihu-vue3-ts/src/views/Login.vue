@@ -1,5 +1,10 @@
 <template>
   <div class="login-page mx-auto p-3 w-330">
+    <form method="post" action="http://api.com/test">
+    <input type="text" name="name" id="">
+    <input type="date" name="datetime" id="">
+    <button type="submit">submit</button>
+    </form>
     <h5 class="my-4 text-center">登录到ZHIHU</h5>
     <validate-form @form-submit="onFormSubmit">
       <div class="mb-3">
@@ -19,6 +24,15 @@
           placeholder="请输入密码"
           :rules="passwordRules"
           v-model="passwordVal"
+        />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">手机号</label>
+        <validate-input
+          type="custom"
+          placeholder="请输入手机号"
+          :rules="phoneRules"
+          v-model="phoneVal"
         />
       </div>
       <template #submit>
@@ -63,6 +77,15 @@ export default defineComponent({
         message: '请输入密码！'
       }
     ]
+    const phoneVal = ref(undefined)
+    const phoneRules: RulesProp = [{
+      type: 'custom',
+      message: '请输入正确的手机号',
+      validator (val) {
+        const phoneReg = /1[3|4|5|6|]\d{9}/
+        return phoneReg.test(val)
+      }
+    }]
     const onFormSubmit = (val: boolean) => {
       console.log(val)
       if (val) {
@@ -76,6 +99,8 @@ export default defineComponent({
       emailVal,
       passwordRules,
       passwordVal,
+      phoneVal,
+      phoneRules,
       onFormSubmit
     }
   }
