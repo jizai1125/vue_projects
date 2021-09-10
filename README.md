@@ -1,4 +1,4 @@
-# Vue-projects： vue项目列表
+# vue-projects： vue项目列表
 1. chen-shop: 电商购物项目
 2. Finance： 京东金融
 3. mpvue 
