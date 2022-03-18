@@ -5,3 +5,4 @@
     - whether 天气微信小程序
 4. music 移动端音乐播放器
 5. zhihu-vue3-ts 仿知乎
+5. vue-cache： vue页面缓存策略
