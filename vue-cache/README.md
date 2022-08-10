@@ -8,11 +8,10 @@
 
    <img src="D:\myWeb\Vue_demo\vue-cache\public\列表缓存.gif" alt="列表缓存" style="zoom:50%;" />
 
-<<<<<<< HEAD
 2. 菜单切换，缓存访问过的页面
 
    ![菜单页面缓存](D:\myWeb\Vue_demo\vue-cache\public\菜单页面缓存.gif)
-=======
+
    <img src="http://wiki.aihuoshi.net/download/attachments/45777482/%E5%88%97%E8%A1%A8%E7%BC%93%E5%AD%98.gif?version=1&modificationDate=1611560372000&api=v2" alt="列表缓存" style="zoom:50%;" />
 
 2. 同级路由切换缓存
