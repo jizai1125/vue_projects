@@ -19,7 +19,6 @@
    > 菜单切换，缓存访问过的页面
    
    ![菜单页面缓存](http://wiki.aihuoshi.net/download/attachments/45777482/%E8%8F%9C%E5%8D%95%E9%A1%B5%E9%9D%A2%E7%BC%93%E5%AD%98.gif?version=1&modificationDate=1611560383000&api=v2)
->>>>>>> 48ed76c1af29848cbc9054a735905517cc57ba65
 
 ### 思路
 
